@@ -1,0 +1,242 @@
+---
+- name: Configurar Estação de Trabalho
+  hosts: localhost
+  connection: local
+
+  vars:
+    dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
+    dotfiles_repo: "https://github.com/germanocorrea/dotfiles.git"
+
+  tasks:
+    # --- GRUPO: BASE (Pré-requisitos) ---
+    - name: 1. Instalar pacotes base (Git, Stow)
+      become: yes
+      package: # Usando 'package' genérico para os pré-requisitos
+        name:
+          - git
+          - stow
+        state: present
+      tags:
+        - base
+        - always # Sempre roda, pois é essencial
+
+    - name: 2. Clonar repositório de dotfiles
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ dotfiles_dir }}"
+        version: main
+      tags:
+        - base
+        - always
+
+    # --- GRUPO: PACOTES EM MASSA (Via YAY) ---
+    # Usamos 'kewlfft.aur' que instala/usa 'yay' para
+    # gerenciar pacotes do Repo e do AUR.
+    # 'nvim', 'zsh', 'kitty', 'cosmic' foram removidos daqui
+    # para serem tratados em suas próprias seções.
+
+    - name: 3. Instalar Pacotes [development-base]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - base
+          - base-devel
+          - curl
+          - wget
+          - zsh-autosuggestions
+          - zsh-completions
+          - zsh-you-should-use
+          - cmake
+          - gcc
+          - speedtest-cli
+          - tree-sitter
+        state: present
+      tags:
+        - packages
+        - development-base
+
+    - name: 4. Instalar Pacotes [arch-base]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - btop
+          - buildah
+          - podman
+          - podman-compose
+          - go
+          - jdk-openjdk
+          - coreutils
+        state: present
+      tags:
+        - packages
+        - arch-base
+
+    - name: 5. Instalar Pacotes [personal]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - solaar
+          - zen-browser-bin
+          - android-file-transfer
+          - bibata-cursor-theme-bin
+          - cable
+          - calibre
+          - distrobox
+          - gimp
+          - kdenlive
+          - mesa-utils
+          - obs-studio
+          - obsidian
+          - pinta
+          - stremio
+          - vlc
+        state: present
+      tags:
+        - packages
+        - personal
+
+    - name: 6. Instalar Pacotes [g15]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - dell-g15-controller
+        state: present
+      tags:
+        - packages
+        - g15
+
+    - name: 7. Instalar Pacotes [graphics-base]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - mesa
+          - cuda
+        state: present
+      tags:
+        - packages
+        - graphics-base
+
+    # --- GRUPO: APLICATIVOS COM DOTFILES ---
+    # Cada bloco instala o pacote E aplica o dotfile
+
+    - name: Configurar Neovim
+      tags:
+        - nvim
+        - development-base
+      block:
+        - name: Instalar pacote Neovim
+          become: yes
+          kewlfft.aur.aur:
+            use: pacman
+            name: nvim
+            state: present
+          tags: packages # Também incluído na tag 'packages'
+
+        - name: Aplicar (stow) dotfiles do Neovim
+          command:
+            cmd: "stow nvim"
+            chdir: "{{ dotfiles_dir }}"
+          tags: dotfiles # Também incluído na tag 'dotfiles'
+
+    - name: Configurar Zsh
+      tags:
+        - zsh
+        - development-base
+      block:
+        - name: Instalar pacote Zsh
+          become: yes
+          kewlfft.aur.aur:
+            use: pacman
+            name: zsh
+            state: present
+          tags: packages
+
+        - name: Aplicar (stow) dotfiles do Zsh
+          command:
+            # Assumindo que seu diretório stow se chama 'zsh'
+            cmd: "stow zsh"
+            chdir: "{{ dotfiles_dir }}"
+          tags: dotfiles
+
+    - name: Configurar Kitty
+      tags:
+        - kitty
+        - personal
+      block:
+        - name: Instalar pacote Kitty
+          become: yes
+          kewlfft.aur.aur:
+            use: pacman
+            name: kitty
+            state: present
+          tags: packages
+
+        - name: Aplicar (stow) dotfiles do Kitty
+          command:
+            cmd: "stow kitty"
+            chdir: "{{ dotfiles_dir }}"
+          tags: dotfiles
+
+    - name: Configurar Cosmic
+      tags:
+        - cosmic
+        - personal
+      block:
+        - name: Instalar pacote Cosmic
+          become: yes
+          kewlfft.aur.aur:
+            use: yay
+            name: cosmic # Verifique o nome real (ex: cosmic-desktop)
+            state: present
+          tags: packages
+
+        - name: Aplicar (stow) dotfiles do Cosmic
+          command:
+            cmd: "stow cosmic"
+            chdir: "{{ dotfiles_dir }}"
+          tags: dotfiles
+    
+    - name: 8. Instalar Haskell (GHCup)
+      tags:
+        - development-base
+        - haskell
+      block:
+        - name: Baixar e instalar GHCup (Não-Interativo)
+          ansible.builtin.shell:
+            cmd: "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh"
+            # Isso faz o Ansible pular a task se o arquivo já existir
+            creates: "{{ ansible_env.HOME }}/.ghcup/bin/ghcup"
+          environment:
+            # Esta é a variável que "responde" às perguntas do script
+            BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
+    # ... (tasks anteriores)
+
+    - name: 9. Instalar Rust (Rustup)
+      tags:
+        - development-base
+        - rust
+      block:
+        - name: Baixar e instalar Rustup (Não-Interativo)
+          ansible.builtin.shell:
+            # O 'sh -s -- -y' passa a flag '-y' para o script de instalação
+            cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+            # 'creates' torna a task idempotente, verificando se o binário já existe
+            creates: "{{ ansible_env.HOME }}/.cargo/bin/rustup"
+
+    - name: 10. Instalar NVM (Node Version Manager)
+      tags:
+        - nvm
+        - development-base
+      block:
+        - name: Baixar e instalar NVM
+          ansible.builtin.shell:
+            # Usamos a versão específica que você forneceu
+            cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
+            # 'creates' torna a task idempotente
+            creates: "{{ ansible_env.HOME }}/.nvm"
+
