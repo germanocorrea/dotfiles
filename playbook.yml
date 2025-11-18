@@ -81,6 +81,9 @@
           - gcc
           - speedtest-cli
           - tree-sitter
+          - coreutils
+          - go
+          - jdk-openjdk
         state: present
       tags:
         - packages
@@ -94,9 +97,6 @@
           - buildah
           - podman
           - podman-compose
-          - go
-          - jdk-openjdk
-          - coreutils
         state: present
       tags:
         - packages
@@ -133,6 +133,7 @@
       tags:
         - packages
         - personal
+        - aur
 
     - name: 7. Instalar Pacotes [g15]
       kewlfft.aur.aur:
