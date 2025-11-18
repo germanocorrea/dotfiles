@@ -41,7 +41,6 @@
               - git
               - base-devel
             state: present
-            needed: yes # Equivalente ao --needed do pacman
 
         - name: 3b. Clonar repositório do yay para /tmp
           # Esta task roda como usuário normal (sem become: yes)
