@@ -40,6 +40,7 @@
             name:
               - git
               - base-devel
+              - go
             state: present
 
         - name: 3b. Clonar repositório do yay para /tmp
@@ -67,7 +68,6 @@
     # para serem tratados em suas próprias seções.
 
     - name: 4. Instalar Pacotes [development-base]
-      become: yes
       kewlfft.aur.aur:
         use: yay
         name:
@@ -88,7 +88,6 @@
         - development-base
 
     - name: 5. Instalar Pacotes [arch-base]
-      become: yes
       kewlfft.aur.aur:
         use: yay
         name:
@@ -105,7 +104,6 @@
         - arch-base
 
     - name: 6. Instalar Pacotes [personal]
-      become: yes
       kewlfft.aur.aur:
         use: yay
         name:
@@ -130,7 +128,6 @@
         - personal
 
     - name: 7. Instalar Pacotes [g15]
-      become: yes
       kewlfft.aur.aur:
         use: yay
         name:
@@ -141,7 +138,6 @@
         - g15
 
     - name: 8. Instalar Pacotes [graphics-base]
-      become: yes
       kewlfft.aur.aur:
         use: yay
         name:
@@ -161,9 +157,8 @@
         - development-base
       block:
         - name: Instalar pacote Neovim
-          become: yes
           kewlfft.aur.aur:
-            use: pacman
+            use: yay
             name: nvim
             state: present
           tags: packages # Também incluído na tag 'packages'
@@ -180,9 +175,8 @@
         - development-base
       block:
         - name: Instalar pacote Zsh
-          become: yes
           kewlfft.aur.aur:
-            use: pacman
+            use: yay
             name: zsh
             state: present
           tags: packages
@@ -200,9 +194,8 @@
         - personal
       block:
         - name: Instalar pacote Kitty
-          become: yes
           kewlfft.aur.aur:
-            use: pacman
+            use: yay
             name: kitty
             state: present
           tags: packages
@@ -219,7 +212,6 @@
         - personal
       block:
         - name: Instalar pacote Cosmic
-          become: yes
           kewlfft.aur.aur:
             use: yay
             name: cosmic # Verifique o nome real (ex: cosmic-desktop)
