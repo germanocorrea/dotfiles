@@ -68,8 +68,8 @@
     # para serem tratados em suas próprias seções.
 
     - name: 4. Instalar Pacotes [development-base]
+      become: yes
       package:
-        become: yes
         name:
           - base
           - base-devel
@@ -87,8 +87,8 @@
         - development-base
 
     - name: 5. Instalar Pacotes [arch-base]
+      become: yes
       package:
-        become: yes
         name:
           - btop
           - buildah
@@ -103,8 +103,8 @@
         - arch-base
 
     - name: 6. Instalar Pacotes [personal]
+      become: yes
       package:
-        become: yes
         use: yay
         name:
           - solaar
@@ -145,8 +145,8 @@
         - g15
 
     - name: 8. Instalar Pacotes [graphics-base]
+      become: yes
       package:
-        become: yes
         name:
           - mesa
           - cuda
@@ -165,8 +165,8 @@
         - development-base
       block:
         - name: Instalar pacote Neovim
+          become: yes
           package:
-            become: yes
             name: neovim
             state: present
           tags: packages # Também incluído na tag 'packages'
@@ -183,8 +183,8 @@
         - development-base
       block:
         - name: Instalar pacote Zsh
+          become: yes
           package:
-            become: yes
             name: zsh
             state: present
           tags: packages
@@ -202,8 +202,8 @@
         - personal
       block:
         - name: Instalar pacote Kitty
+          become: yes
           package:
-            become: yes
             name: kitty
             state: present
           tags: packages
@@ -220,8 +220,8 @@
         - personal
       block:
         - name: Instalar pacote Cosmic
+          become: yes
           package:
-            become: yes
             name: cosmic
             state: present
           tags: packages
