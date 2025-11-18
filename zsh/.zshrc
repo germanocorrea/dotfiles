@@ -17,20 +17,95 @@
 # -----------------------------------------------------
 
 # -----------------------------------------------------
-# Load modular configarion
+# INIT
 # -----------------------------------------------------
 
-for f in ~/.config/zshrc/*; do
-    if [ ! -d $f ]; then
-        c=`echo $f | sed -e "s=.config/zshrc=.config/zshrc/custom="`
-        [[ -f $c ]] && source $c || source $f
-    fi
-done
+# -----------------------------------------------------
+# Exports
+# -----------------------------------------------------
+export EDITOR=nvim
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=$PATH:~/.cargo/bin/
 
 # -----------------------------------------------------
-# Load single customization file (if exists)
+# CUSTOMIZATION
+# -----------------------------------------------------
+#POSH=lambda
+# -----------------------------------------------------
+# oh-myzsh themes: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# -----------------------------------------------------
+ZSH_THEME=lambda
+
+# -----------------------------------------------------
+# oh-myzsh plugins
+# -----------------------------------------------------
+plugins=(
+    git
+    sudo
+    web-search
+    archlinux
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    fast-syntax-highlighting
+    copyfile
+    copybuffer
+    dirhistory
+    podman
+)
+
+# Set-up oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
+source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+
+# -----------------------------------------------------
+# Set-up FZF key bindings (CTRL R for fuzzy history finder)
+# -----------------------------------------------------
+source <(fzf --zsh)
+
+# zsh history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+# -----------------------------------------------------
+# Prompt
+# -----------------------------------------------------
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
+#eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/EDM115-newline.omp.json)"
+
+# Shipped Theme
+# eval "$(oh-my-posh init zsh --config /usr/share/oh-my-posh/themes/agnoster.omp.json)"
+
+# -----------------------------------------------------
+# ALIASES
 # -----------------------------------------------------
 
-if [ -f ~/.zshrc_custom ]; then
-    source ~/.zshrc_custom
-fi
+alias findin='find $(pwd) -type f -exec grep -H "$1" {} \;'
+
+# -----------------------------------------------------
+# General
+# -----------------------------------------------------
+alias c='clear'
+alias nf='fastfetch'
+alias pf='fastfetch'
+alias ff='fastfetch'
+alias ls='eza -a --icons=always'
+alias ll='eza -al --icons=always'
+alias lt='eza -a --tree --level=1 --icons=always'
+alias shutdown='systemctl poweroff'
+alias v='$EDITOR'
+alias vim='$EDITOR'
+alias ts='~/.config/ml4w/scripts/snapshot.sh'
+alias wifi='nmtui'
+alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
+
+# -----------------------------------------------------
+# System
+# -----------------------------------------------------
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+alias ssh-sparta='sshpass -f/home/gegebc/.sparta-pswd ssh portoalegre\\germano.bruscato@sparta.pucrs.br'
+
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
