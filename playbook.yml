@@ -25,6 +25,7 @@
         repo: "{{ dotfiles_repo }}"
         dest: "{{ dotfiles_dir }}"
         version: main
+        force: yes
       tags:
         - base
         - always
@@ -105,7 +106,6 @@
     - name: 6. Instalar Pacotes [personal]
       become: yes
       package:
-        use: yay
         name:
           - solaar
           - android-file-transfer
