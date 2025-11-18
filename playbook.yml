@@ -29,13 +29,45 @@
         - base
         - always
 
+    - name: 3. Instalar Yay (AUR Helper)
+      tags:
+        - aur
+        - always # Garantir que o yay exista antes de outros pacotes
+      block:
+        - name: 3a. Instalar dependências (git, base-devel)
+          become: yes
+          package:
+            name:
+              - git
+              - base-devel
+            state: present
+            needed: yes # Equivalente ao --needed do pacman
+
+        - name: 3b. Clonar repositório do yay para /tmp
+          # Esta task roda como usuário normal (sem become: yes)
+          ansible.builtin.git:
+            repo: 'https://aur.archlinux.org/yay.git'
+            dest: '/tmp/yay' # Usamos /tmp para não sujar o home
+            clone: yes
+            update: no # Só precisamos clonar, não atualizar
+
+        - name: 3c. Construir e instalar o yay (makepkg)
+          # Esta task TAMBÉM roda como usuário normal
+          ansible.builtin.shell:
+            # --noconfirm evita que o makepkg peça confirmação
+            cmd: "makepkg -si --noconfirm"
+            chdir: "/tmp/yay"
+            # 'creates' é a chave para a idempotência:
+            # Se o arquivo /usr/bin/yay já existir, o Ansible pula esta task.
+            creates: "/usr/bin/yay"
+
     # --- GRUPO: PACOTES EM MASSA (Via YAY) ---
     # Usamos 'kewlfft.aur' que instala/usa 'yay' para
     # gerenciar pacotes do Repo e do AUR.
     # 'nvim', 'zsh', 'kitty', 'cosmic' foram removidos daqui
     # para serem tratados em suas próprias seções.
 
-    - name: 3. Instalar Pacotes [development-base]
+    - name: 4. Instalar Pacotes [development-base]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -56,7 +88,7 @@
         - packages
         - development-base
 
-    - name: 4. Instalar Pacotes [arch-base]
+    - name: 5. Instalar Pacotes [arch-base]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -73,7 +105,7 @@
         - packages
         - arch-base
 
-    - name: 5. Instalar Pacotes [personal]
+    - name: 6. Instalar Pacotes [personal]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -98,7 +130,7 @@
         - packages
         - personal
 
-    - name: 6. Instalar Pacotes [g15]
+    - name: 7. Instalar Pacotes [g15]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -109,7 +141,7 @@
         - packages
         - g15
 
-    - name: 7. Instalar Pacotes [graphics-base]
+    - name: 8. Instalar Pacotes [graphics-base]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -201,7 +233,7 @@
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
     
-    - name: 8. Instalar Haskell (GHCup)
+    - name: Instalar Haskell (GHCup)
       tags:
         - development-base
         - haskell
@@ -216,7 +248,7 @@
             BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
     # ... (tasks anteriores)
 
-    - name: 9. Instalar Rust (Rustup)
+    - name: Instalar Rust (Rustup)
       tags:
         - development-base
         - rust
@@ -228,7 +260,7 @@
             # 'creates' torna a task idempotente, verificando se o binário já existe
             creates: "{{ ansible_env.HOME }}/.cargo/bin/rustup"
 
-    - name: 10. Instalar NVM (Node Version Manager)
+    - name: Instalar NVM (Node Version Manager)
       tags:
         - nvm
         - development-base
