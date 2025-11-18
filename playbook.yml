@@ -228,7 +228,7 @@
 
         - name: Aplicar (stow) dotfiles do Cosmic
           command:
-            cmd: "stow cosmic"
+            cmd: "stow --adopt cosmic"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
     
