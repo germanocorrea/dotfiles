@@ -4,17 +4,6 @@
 #  _ / /\__ \ | | | | | (__
 # (_)___|___/_| |_|_|  \___|
 #
-# -----------------------------------------------------
-# ML4W zshrc loader
-# -----------------------------------------------------
-
-# DON'T CHANGE THIS FILE
-
-# You can define your custom configuration by adding
-# files in ~/.config/zshrc
-# or by creating a folder ~/.config/zshrc/custom
-# with copies of files from ~/.config/zshrc
-# -----------------------------------------------------
 
 # -----------------------------------------------------
 # INIT
@@ -26,6 +15,7 @@
 export EDITOR=nvim
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:~/.cargo/bin/
+export NVM_DIR="$HOME/.nvm"
 
 # -----------------------------------------------------
 # CUSTOMIZATION
@@ -51,6 +41,16 @@ plugins=(
     copybuffer
     dirhistory
     podman
+    apache2-macports
+    common-aliases
+    last-working-dir
+    mysql-macports
+    systemd
+    git-extras
+    taskwarrior
+    docker
+    urltools
+    # zsh-fzf-history-search
 )
 
 # Set-up oh-my-zsh
@@ -108,4 +108,21 @@ alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias ssh-sparta='sshpass -f/home/gegebc/.sparta-pswd ssh portoalegre\\germano.bruscato@sparta.pucrs.br'
 
+lsperm() {
+    ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) \
+             *2^(8-i));if(k)printf("%0o ",k);print}'
+}
+
+ffgif() {
+        ffmpeg -i $1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" $1.mp4
+}
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
+
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+
+if [ -f ~/.zshrc_custom ]; then
+    source ~/.zshrc_custom
+fi
