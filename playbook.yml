@@ -33,6 +33,7 @@
     - name: 3. Instalar Yay (AUR Helper)
       tags:
         - aur
+        - arch
         #- always # Garantir que o yay exista antes de outros pacotes
       block:
         - name: 3a. Instalar dependências (git, base-devel)
@@ -47,8 +48,8 @@
         - name: 3b. Clonar repositório do yay para /tmp
           # Esta task roda como usuário normal (sem become: yes)
           ansible.builtin.git:
-            repo: 'https://aur.archlinux.org/yay.git'
-            dest: '/tmp/yay' # Usamos /tmp para não sujar o home
+            repo: "https://aur.archlinux.org/yay.git"
+            dest: "/tmp/yay" # Usamos /tmp para não sujar o home
             clone: yes
             update: no # Só precisamos clonar, não atualizar
 
@@ -94,7 +95,6 @@
       become: yes
       package:
         name:
-          - btop
           - buildah
           - podman
           - podman-compose
@@ -215,6 +215,24 @@
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
+    - name: Configurar btop
+      tags:
+        - btop
+        - personal
+      block:
+        - name: Instalar pacote btop
+          become: yes
+          package:
+            name: btop
+            state: present
+          tags: packages
+
+        - name: Aplicar (stow) dotfiles do btop
+          command:
+            cmd: "stow --adopt btop"
+            chdir: "{{ dotfiles_dir }}"
+          tags: dotfiles
+
     - name: Configurar Cosmic
       tags:
         - cosmic
@@ -232,7 +250,7 @@
             cmd: "stow --adopt cosmic"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
-    
+
     - name: Instalar Haskell (GHCup)
       tags:
         - development-base
@@ -271,4 +289,3 @@
             cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
             # 'creates' torna a task idempotente
             creates: "{{ ansible_env.HOME }}/.nvm"
-
