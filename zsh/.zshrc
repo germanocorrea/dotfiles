@@ -14,7 +14,7 @@
 # -----------------------------------------------------
 export EDITOR=nvim
 export ZSH="$HOME/.oh-my-zsh"
-export PATH=$PATH:~/.cargo/bin/
+export PATH=$PATH:~/.cargo/bin/:~/.local/bin
 export NVM_DIR="$HOME/.nvm"
 
 # -----------------------------------------------------
@@ -34,9 +34,9 @@ plugins=(
     sudo
     web-search
     archlinux
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    fast-syntax-highlighting
+    #zsh-autosuggestions
+    #zsh-syntax-highlighting
+    #fast-syntax-highlighting
     copyfile
     copybuffer
     dirhistory
@@ -56,12 +56,12 @@ plugins=(
 # Set-up oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+#source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
 
 # -----------------------------------------------------
 # Set-up FZF key bindings (CTRL R for fuzzy history finder)
 # -----------------------------------------------------
-source <(fzf --zsh)
+#source <(fzf --zsh)
 
 # zsh history
 HISTFILE=~/.zsh_history
