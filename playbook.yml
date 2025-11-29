@@ -325,3 +325,24 @@
             cmd: "chmod a+x phpactor"
             chdir: "{{ ansible_facts.env.HOME }}/.local/bin"
           tags: packages
+
+    - name: Configurar Virtualizacao
+      tags:
+        - personal
+      block:
+        - name: Instalar pacotes
+          become: yes
+          package:
+            name:
+              - libvirt
+              - virt-manager
+              - qemu-full
+            state: present
+          tags: packages # Também incluído na tag 'packages'
+
+        - name: Habilitar e iniciar libvirtd.socket
+          become: yes
+          ansible.builtin.systemd:
+            name: libvirtd.socket
+            enabled: true
+            state: started
