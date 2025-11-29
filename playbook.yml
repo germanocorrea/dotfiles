@@ -264,7 +264,7 @@
         - name: Instalar fourmolu
           command:
             cmd: "cabal install fourmolu"
-            creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/fourmolu"
+            creates: "{{ ansible_facts.env.HOME }}/.cabal/bin/fourmolu"
 
     - name: Instalar Rust (Rustup)
       tags:
