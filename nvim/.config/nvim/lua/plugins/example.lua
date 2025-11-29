@@ -3,6 +3,7 @@ return {
 	{
 		"ellisonleao/gruvbox.nvim",
 		"nyoom-engineering/oxocarbon.nvim",
+		"thesimonho/kanagawa-paper.nvim",
 	},
 
 	-- Trouble
