@@ -99,6 +99,7 @@ alias vim='$EDITOR'
 alias ts='~/.config/ml4w/scripts/snapshot.sh'
 alias wifi='nmtui'
 alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
+alias update-ansible='sh -c "$(curl -fsSL https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/run.sh)"'
 
 # -----------------------------------------------------
 # System
