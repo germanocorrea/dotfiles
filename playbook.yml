@@ -6,6 +6,16 @@
   vars:
     dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
     dotfiles_repo: "git@github.com:germanocorrea/dotfiles.git"
+    python:
+      Ubuntu:
+        - "python3"
+        - "python3-pip"
+      Archlinux:
+        - "python"
+        - "python-pip"
+      CachyOS:
+        - "python"
+        - "python-pip"
 
   tasks:
     - name: 1. Instalar pacotes base (Git, Stow)
@@ -324,24 +334,7 @@
             state: started
 
     - name: Instalação de Python e Pip
-      hosts: all
-      gather_facts: true
       become: yes
-
-      vars:
-        python_packages_by_distro:
-          Ubuntu:
-            - "python3"
-            - "python3-pip"
-          Archlinux:
-            - "python"
-            - "python-pip"
-          CachyOS:
-            - "python"
-            - "python-pip"
-
-      tasks:
-        - name: Instalar Python e Pip usando o gerenciador de pacotes nativo
-          ansible.builtin.package:
-            name: "{{ python_packages_by_distro[ansible_distribution] }}"
-            state: present
+      package:
+        name: "{{ python[ansible_distribution] }}"
+        state: present
