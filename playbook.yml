@@ -98,6 +98,8 @@
           - buildah
           - podman
           - podman-compose
+          - bat
+          - eza
         state: present
       tags:
         - packages
@@ -320,4 +322,3 @@
             cmd: "chmod a+x phpactor"
             chdir: "{{ ansible_facts.env.HOME }}/.local/bin"
           tags: packages
-
