@@ -28,7 +28,7 @@ require("lazy").setup({
 
 		-- 2. Carrega os EXTRAS (movidos do seu arquivo de plugins)
 		{ import = "lazyvim.plugins.extras.lang.typescript" },
-		{ import = "lazyvim.plugins.extras.ui.mini-starter" },
+		--{ import = "lazyvim.plugins.extras.ui.mini-starter" },
 		{ import = "lazyvim.plugins.extras.lang.json" },
 
 		-- 3. Carrega seus plugins customizados (de lua/plugins/) DEPOIS de todo o resto
