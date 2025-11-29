@@ -271,7 +271,10 @@
           environment:
             # Esta é a variável que "responde" às perguntas do script
             BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
-    # ... (tasks anteriores)
+        - name: Instalar fourmolu
+          command:
+            cmd: "cabal install fourmolu"
+            creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/fourmolu"
 
     - name: Instalar Rust (Rustup)
       tags:
