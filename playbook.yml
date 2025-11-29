@@ -167,14 +167,35 @@
         - zsh
         - development-base
       block:
-        - name: Instalar pacote Zsh
+        - name: 1. Instalar pacote Zsh
           become: yes
           package:
             name: zsh
             state: present
           tags: packages
 
-        - name: Aplicar (stow) dotfiles do Zsh
+        - name: 2. Trocar a shell padrão do usuário para zsh
+          become: yes
+          user:
+            name: "{{ ansible_user_id }}"
+            shell: /usr/bin/zsh
+
+        - name: 3. Instalar Oh My Zsh (Não-Interativo)
+          shell:
+            cmd: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc'
+            creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+
+        - name: 4. Instalar plugin zsh-syntax-highlighting
+          git:
+            repo: "https://github.com/zsh-users/zsh-syntax-highlighting"
+            dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+        - name: 5. Instalar plugin zsh-autosuggestions
+          git:
+            repo: "https://github.com/zsh-users/zsh-autosuggestions"
+            dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+        - name: 6. Aplicar (stow) dotfiles do Zsh
           command:
             # Assumindo que seu diretório stow se chama 'zsh'
             cmd: "stow --adopt zsh"
