@@ -1,0 +1,9 @@
+cabal-version:      3.16
+name:               xmonad-config
+version:            0.1.0.0
+build-type:         Simple
+
+executable xmonad
+    main-is:          xmonad.hs
+    default-language: GHC2024
+    build-depends:    base, xmonad, xmonad-contrib

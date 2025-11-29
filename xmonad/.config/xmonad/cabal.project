@@ -1,0 +1,4 @@
+packages: .
+
+-- Isso força o cabal a ignorar o limite superior da versão do base
+allow-newer: *:base
