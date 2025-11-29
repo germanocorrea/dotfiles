@@ -73,8 +73,6 @@
           - base-devel
           - curl
           - wget
-          - zsh-autosuggestions
-          - zsh-completions
           - cmake
           - gcc
           - speedtest-cli
