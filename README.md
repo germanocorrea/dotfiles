@@ -1,6 +1,6 @@
 # germanocorrea/dotfiles
 
-My personal dotfiles. Public because at the first setup after OS installation I might not have SSH configured.
+My personal dotfiles for the machines and distros I use. Public because at the first setup after OS installation I might not have SSH configured.
 
 First run:
 ```sh
@@ -18,15 +18,3 @@ updateansible
   - For Ubuntu, it adds the necessary PPA for ansible
 - Check if there is a dotfiles directory already. If there is, it commits everything that is uncommited and pushes everything unpushed.
 - Executes the playbook fetching it from github
-
-### Why Arch, Cachy and Ubuntu?
-
-I use CachyOS on my main computer, Arch on a homelab server, and Ubuntu on my work computer. This interoperability is important. Tho currently it is not working properly on Ubuntu.
-
-### Why commit and push everything?
-
-I built this so that some configurations that I change "on the fly" via GUIs (like the COSMIC DE) or that other software changes automatically (like a PATH export) reflect automatically in the dotfiles repo, so I thought this is easier.
-
-### Why execute the playbook fetching from github?
-
-The idea is that the `run.sh` script tries to be idempotent. This means that running it multiple times should reflect on the same state, even if nothing is yet configured (not even Ansible) or everything is already configured. It is supposed to be an all-around script for this.
