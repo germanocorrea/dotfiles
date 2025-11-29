@@ -4,7 +4,7 @@
   connection: local
 
   vars:
-    dotfiles_dir: "{{ ansible_env.HOME }}/dotfiles"
+    dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
     dotfiles_repo: "https://github.com/germanocorrea/dotfiles.git"
 
   tasks:
@@ -177,23 +177,23 @@
         - name: 2. Trocar a shell padrão do usuário para zsh
           become: yes
           user:
-            name: "{{ ansible_user_id }}"
+            name: "{{ ansible_facts.user_id }}"
             shell: /usr/bin/zsh
 
         - name: 3. Instalar Oh My Zsh (Não-Interativo)
           shell:
             cmd: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc'
-            creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+            creates: "{{ ansible_facts.env.HOME }}/.oh-my-zsh"
 
         - name: 4. Instalar plugin zsh-syntax-highlighting
           git:
             repo: "https://github.com/zsh-users/zsh-syntax-highlighting"
-            dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+            dest: "{{ ansible_facts.env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 
         - name: 5. Instalar plugin zsh-autosuggestions
           git:
             repo: "https://github.com/zsh-users/zsh-autosuggestions"
-            dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+            dest: "{{ ansible_facts.env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 
         - name: 6. Aplicar (stow) dotfiles do Zsh
           command:
@@ -265,7 +265,7 @@
           ansible.builtin.shell:
             cmd: "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh"
             # Isso faz o Ansible pular a task se o arquivo já existir
-            creates: "{{ ansible_env.HOME }}/.ghcup/bin/ghcup"
+            creates: "{{ ansible_facts.env.HOME }}/.ghcup/bin/ghcup"
           environment:
             # Esta é a variável que "responde" às perguntas do script
             BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
@@ -281,7 +281,7 @@
             # O 'sh -s -- -y' passa a flag '-y' para o script de instalação
             cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
             # 'creates' torna a task idempotente, verificando se o binário já existe
-            creates: "{{ ansible_env.HOME }}/.cargo/bin/rustup"
+            creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/rustup"
 
     - name: Instalar NVM (Node Version Manager)
       tags:
@@ -293,4 +293,4 @@
             # Usamos a versão específica que você forneceu
             cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
             # 'creates' torna a task idempotente
-            creates: "{{ ansible_env.HOME }}/.nvm"
+            creates: "{{ ansible_facts.env.HOME }}/.nvm"
