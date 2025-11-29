@@ -1,8 +1,8 @@
 (
     rules: "",
     model: "",
-    layout: "br,us",
-    variant: ",alt-intl",
+    layout: "us,br",
+    variant: "alt-intl,",
     options: None,
     repeat_delay: 600,
     repeat_rate: 25,
