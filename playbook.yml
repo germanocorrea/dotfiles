@@ -5,7 +5,7 @@
 
   vars:
     dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
-    dotfiles_repo: "https://github.com/germanocorrea/dotfiles.git"
+    dotfiles_repo: "git@github.com:germanocorrea/dotfiles.git"
 
   tasks:
     # --- GRUPO: BASE (Pré-requisitos) ---
