@@ -294,3 +294,30 @@
             cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
             # 'creates' torna a task idempotente
             creates: "{{ ansible_facts.env.HOME }}/.nvm"
+
+    - name: Instalar e configurar PHP
+      tags:
+        - development-base
+        - php
+      block:
+        - name: Instalar pacote php
+          become: yes
+          package:
+            name: php
+            state: present
+          tags: packages
+
+        - name: Instalar phpactor
+          command:
+            cmd: "curl -Lo phpactor https://github.com/phpactor/phpactor/releases/latest/download/phpactor.phar"
+            chdir: "{{ ansible_facts.env.HOME }}/.local/bin"
+            creates: "{{ ansible_facts.env.HOME }}/.local/bin/phpactor"
+          tags: packages
+
+        - name: Permissão do phpactor
+          become: yes
+          command:
+            cmd: "chmod a+x phpactor"
+            chdir: "{{ ansible_facts.env.HOME }}/.local/bin"
+          tags: packages
+
