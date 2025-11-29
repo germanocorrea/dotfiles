@@ -8,7 +8,6 @@
     dotfiles_repo: "git@github.com:germanocorrea/dotfiles.git"
 
   tasks:
-    # --- GRUPO: BASE (Pré-requisitos) ---
     - name: 1. Instalar pacotes base (Git, Stow)
       become: yes
       package: # Usando 'package' genérico para os pré-requisitos
@@ -18,8 +17,7 @@
         state: present
       tags:
         - base
-        - always # Sempre roda, pois é essencial
-
+        - always
     - name: 2. Clonar repositório de dotfiles
       git:
         repo: "{{ dotfiles_repo }}"
@@ -34,7 +32,6 @@
       tags:
         - aur
         - arch
-        #- always # Garantir que o yay exista antes de outros pacotes
       block:
         - name: 3a. Instalar dependências (git, base-devel)
           become: yes
@@ -46,28 +43,17 @@
             state: present
 
         - name: 3b. Clonar repositório do yay para /tmp
-          # Esta task roda como usuário normal (sem become: yes)
           ansible.builtin.git:
             repo: "https://aur.archlinux.org/yay.git"
-            dest: "/tmp/yay" # Usamos /tmp para não sujar o home
+            dest: "/tmp/yay"
             clone: yes
-            update: no # Só precisamos clonar, não atualizar
+            update: no
 
         - name: 3c. Construir e instalar o yay (makepkg)
-          # Esta task TAMBÉM roda como usuário normal
           ansible.builtin.shell:
-            # --noconfirm evita que o makepkg peça confirmação
             cmd: "makepkg -si --noconfirm"
             chdir: "/tmp/yay"
-            # 'creates' é a chave para a idempotência:
-            # Se o arquivo /usr/bin/yay já existir, o Ansible pula esta task.
             creates: "/usr/bin/yay"
-
-    # --- GRUPO: PACOTES EM MASSA (Via YAY) ---
-    # Usamos 'kewlfft.aur' que instala/usa 'yay' para
-    # gerenciar pacotes do Repo e do AUR.
-    # 'nvim', 'zsh', 'kitty', 'cosmic' foram removidos daqui
-    # para serem tratados em suas próprias seções.
 
     - name: 4. Instalar Pacotes [development-base]
       become: yes
@@ -115,8 +101,8 @@
           - distrobox
           - gimp
           - kdenlive
-          - obs-studio
-          - obsidian
+          #- obs-studio
+          #- obsidian
           - vlc
         state: present
       tags:
@@ -143,9 +129,6 @@
         - packages
         - g15
 
-    # --- GRUPO: APLICATIVOS COM DOTFILES ---
-    # Cada bloco instala o pacote E aplica o dotfile
-
     - name: Configurar Neovim
       tags:
         - nvim
@@ -156,13 +139,13 @@
           package:
             name: neovim
             state: present
-          tags: packages # Também incluído na tag 'packages'
+          tags: packages
 
         - name: Aplicar (stow) dotfiles do Neovim
           command:
             cmd: "stow nvim"
             chdir: "{{ dotfiles_dir }}"
-          tags: dotfiles # Também incluído na tag 'dotfiles'
+          tags: dotfiles
 
     - name: Configurar Zsh
       tags:
@@ -199,7 +182,6 @@
 
         - name: 6. Aplicar (stow) dotfiles do Zsh
           command:
-            # Assumindo que seu diretório stow se chama 'zsh'
             cmd: "stow --adopt zsh"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
@@ -266,10 +248,8 @@
         - name: Baixar e instalar GHCup (Não-Interativo)
           ansible.builtin.shell:
             cmd: "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh"
-            # Isso faz o Ansible pular a task se o arquivo já existir
             creates: "{{ ansible_facts.env.HOME }}/.ghcup/bin/ghcup"
           environment:
-            # Esta é a variável que "responde" às perguntas do script
             BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
         - name: Instalar fourmolu
           command:
@@ -283,9 +263,7 @@
       block:
         - name: Baixar e instalar Rustup (Não-Interativo)
           ansible.builtin.shell:
-            # O 'sh -s -- -y' passa a flag '-y' para o script de instalação
             cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
-            # 'creates' torna a task idempotente, verificando se o binário já existe
             creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/rustup"
 
     - name: Instalar NVM (Node Version Manager)
@@ -295,9 +273,7 @@
       block:
         - name: Baixar e instalar NVM
           ansible.builtin.shell:
-            # Usamos a versão específica que você forneceu
             cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
-            # 'creates' torna a task idempotente
             creates: "{{ ansible_facts.env.HOME }}/.nvm"
 
     - name: Instalar e configurar PHP
@@ -338,7 +314,7 @@
               - virt-manager
               - qemu-full
             state: present
-          tags: packages # Também incluído na tag 'packages'
+          tags: packages
 
         - name: Habilitar e iniciar libvirtd.socket
           become: yes
