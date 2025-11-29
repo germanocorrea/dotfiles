@@ -124,11 +124,7 @@
       kewlfft.aur.aur:
         use: yay
         name:
-          - zen-browser-bin
-          - bibata-cursor-theme-bin
-          - cable
           - pinta
-          - stremio
         state: present
       tags:
         - packages
@@ -144,18 +140,6 @@
       tags:
         - packages
         - g15
-
-    - name: 8. Instalar Pacotes [graphics-base]
-      become: yes
-      package:
-        name:
-          - mesa
-          - cuda
-          - mesa-utils
-        state: present
-      tags:
-        - packages
-        - graphics-base
 
     # --- GRUPO: APLICATIVOS COM DOTFILES ---
     # Cada bloco instala o pacote E aplica o dotfile
@@ -193,7 +177,7 @@
         - name: Aplicar (stow) dotfiles do Zsh
           command:
             # Assumindo que seu diretório stow se chama 'zsh'
-            cmd: "stow zsh"
+            cmd: "stow --adopt zsh"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
