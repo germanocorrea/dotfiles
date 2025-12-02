@@ -68,34 +68,21 @@
 
     - name: 4. Instalar Pacotes [development-base]
       become: yes
-      block:
-        - name: Arch packages
-          when: ansible_distribution in ["Archlinux", "CachyOS"]
-          package:
-            name:
-              - base-devel
-              - tree-sitter
-            state: present
-          tags:
-            - arch
-            - packages
-            - development-base
-        - name: Common packages
-          package:
-            name:
-              - base
-              - curl
-              - wget
-              - cmake
-              - gcc
-              - speedtest-cli
-              - coreutils
-              - go
-              - jdk-openjdk
-            state: present
-          tags:
-            - packages
-            - development-base
+      package:
+        name:
+          - base
+          - curl
+          - wget
+          - cmake
+          - gcc
+          - speedtest-cli
+          - coreutils
+          - go
+          - jdk-openjdk
+        state: present
+      tags:
+        - packages
+        - development-base
 
     - name: 5. Instalar Pacotes [arch-base]
       when: ansible_distribution in ["Archlinux", "CachyOS"]
@@ -107,6 +94,8 @@
           - podman-compose
           - bat
           - eza
+          - base-devel
+          - tree-sitter
         state: present
       tags:
         - packages
