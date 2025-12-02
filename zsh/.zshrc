@@ -61,7 +61,7 @@ source $ZSH/oh-my-zsh.sh
 # -----------------------------------------------------
 # Set-up FZF key bindings (CTRL R for fuzzy history finder)
 # -----------------------------------------------------
-source <(fzf --zsh)
+source $HOME/.zsh_fzf
 
 # zsh history
 HISTFILE=~/.zsh_history
