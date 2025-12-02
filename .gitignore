@@ -1,3 +1,4 @@
 cosmic/.config/cosmic/com.system76.CosmicAppList/*
 cosmic/.config/cosmic/com.system76.CosmicComp/v1/xkb_config
 cosmic/.config/cosmic/com.system76.CosmicAppletAudio/*
+nvim/.config/nvim/lazy-lock.json
