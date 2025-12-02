@@ -139,6 +139,7 @@
         - development-base
       block:
         - name: Instalar pacote Neovim
+          when: ansible_distribution in ["Archlinux", "CachyOS"]
           become: yes
           package:
             name: neovim
