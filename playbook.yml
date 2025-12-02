@@ -70,6 +70,7 @@
       become: yes
       block:
         - name: Arch packages
+          when: ansible_distribution in ["Archlinux", "CachyOS"]
           package:
             name: base-devel
             state: present
