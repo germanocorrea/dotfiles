@@ -72,13 +72,14 @@
         - name: Arch packages
           when: ansible_distribution in ["Archlinux", "CachyOS"]
           package:
-            name: base-devel
+            name:
+              - base-devel
+              - tree-sitter
             state: present
           tags:
             - arch
             - packages
             - development-base
-            - tree-sitter
         - name: Common packages
           package:
             name:
