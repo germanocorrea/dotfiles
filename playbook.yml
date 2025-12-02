@@ -77,7 +77,6 @@
           - gcc
           - speedtest-cli
           - coreutils
-          - jdk-openjdk
         state: present
       tags:
         - packages
@@ -96,6 +95,7 @@
           - eza
           - base-devel
           - tree-sitter
+          - jdk-openjdk
         state: present
       tags:
         - packages
