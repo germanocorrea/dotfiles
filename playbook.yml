@@ -148,7 +148,7 @@
 
         - name: Aplicar (stow) dotfiles do Neovim
           command:
-            cmd: "stow nvim"
+            cmd: "stow --adopt nvim"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
@@ -205,7 +205,7 @@
 
         - name: Aplicar (stow) dotfiles do Kitty
           command:
-            cmd: "stow kitty"
+            cmd: "stow --adopt kitty"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
