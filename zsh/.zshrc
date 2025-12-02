@@ -49,6 +49,7 @@ plugins=(
     docker
     urltools
     torrent
+    vi-mode
     zsh-syntax-highlighting
 )
 
