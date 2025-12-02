@@ -77,7 +77,6 @@
           - gcc
           - speedtest-cli
           - coreutils
-          - go
           - jdk-openjdk
         state: present
       tags:
@@ -90,6 +89,7 @@
       package:
         name:
           - buildah
+          - go
           - podman
           - podman-compose
           - bat
