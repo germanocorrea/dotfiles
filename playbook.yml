@@ -39,6 +39,7 @@
         - always
 
     - name: 3. Instalar Yay (AUR Helper)
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
       tags:
         - aur
         - arch
@@ -86,6 +87,7 @@
         - development-base
 
     - name: 5. Instalar Pacotes [arch-base]
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
       become: yes
       package:
         name:
@@ -117,6 +119,7 @@
         - packages
         - personal
     - name: 6. Instalar Pacotes (Yay) [personal]
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
       kewlfft.aur.aur:
         use: yay
         name:
@@ -128,6 +131,7 @@
         - aur
 
     - name: 7. Instalar Pacotes [g15]
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
       kewlfft.aur.aur:
         use: yay
         name:
@@ -231,6 +235,7 @@
           tags: dotfiles
 
     - name: Configurar Cosmic
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
       tags:
         - cosmic
         - personal
@@ -311,6 +316,7 @@
           tags: packages
 
     - name: Configurar Virtualizacao
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
       tags:
         - personal
       block:
