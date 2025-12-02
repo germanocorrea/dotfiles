@@ -118,29 +118,29 @@
       tags:
         - packages
         - personal
-    - name: 6. Instalar Pacotes (Yay) [personal]
+    - name: 6. & 7. Instalar Pacotes AUR (Exclusivo Arch/CachyOS)
       when: ansible_distribution in ["Archlinux", "CachyOS"]
-      kewlfft.aur.aur:
-        use: yay
-        name:
-          - pinta
-        state: present
-      tags:
-        - packages
-        - personal
-        - aur
+      block:
+        - name: Instalar Pacotes (Yay) [personal]
+          kewlfft.aur.aur:
+            use: yay
+            name:
+              - pinta
+            state: present
+          tags:
+            - packages
+            - personal
+            - aur
 
-    - name: 7. Instalar Pacotes [g15]
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
-      kewlfft.aur.aur:
-        use: yay
-        name:
-          - awcc-bin
-        state: present
-      tags:
-        - packages
-        - g15
-
+        - name: Instalar Pacotes [g15]
+          kewlfft.aur.aur:
+            use: yay
+            name:
+              - awcc-bin
+            state: present
+          tags:
+            - packages
+            - g15
     - name: Configurar Neovim
       tags:
         - nvim
