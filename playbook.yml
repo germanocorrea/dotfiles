@@ -96,6 +96,7 @@
           - base-devel
           - tree-sitter
           - jdk-openjdk
+          - distrobox
         state: present
       tags:
         - packages
@@ -108,7 +109,6 @@
           - solaar
           - android-file-transfer
           - calibre
-          - distrobox
           - gimp
           - kdenlive
           #- obs-studio
