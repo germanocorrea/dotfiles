@@ -131,7 +131,7 @@
       kewlfft.aur.aur:
         use: yay
         name:
-          - dell-g15-controller
+          - awcc-bin
         state: present
       tags:
         - packages
