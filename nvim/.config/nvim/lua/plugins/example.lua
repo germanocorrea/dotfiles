@@ -4,6 +4,16 @@ return {
 		"ellisonleao/gruvbox.nvim",
 		"nyoom-engineering/oxocarbon.nvim",
 		"thesimonho/kanagawa-paper.nvim",
+		"savq/melange-nvim",
+		"vague-theme/vague.nvim",
+		"craftzdog/solarized-osaka.nvim",
+		{ "rose-pine/neovim", name = "rose-pine" },
+	},
+
+	{
+		"scottmckendry/cyberdream.nvim",
+		transparent_background = true,
+		saturation = 0.7,
 	},
 
 	{

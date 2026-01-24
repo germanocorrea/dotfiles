@@ -23,7 +23,9 @@ require("lazy").setup({
 			-- Aplica seu override de colorscheme AQUI
 			opts = {
 				--colorscheme = "kanagawa-paper",
-				colorscheme = "neopywal",
+				--colorscheme = "neopywal",
+				-- colorscheme = "rose-pine",
+				colorscheme = "vague",
 			},
 		},
 
