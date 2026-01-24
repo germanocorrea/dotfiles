@@ -104,6 +104,8 @@ alias ts='~/.config/ml4w/scripts/snapshot.sh'
 alias wifi='nmtui'
 alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
 alias updateansible='sh -c "$(curl -fsSL https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/run.sh)"'
+alias copy='wl-copy'
+alias sudo='sudo '
 
 # -----------------------------------------------------
 # System
