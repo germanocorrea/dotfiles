@@ -16,6 +16,7 @@ export EDITOR=nvim
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:~/.cargo/bin/:~/.local/bin
 export NVM_DIR="$HOME/.nvm"
+export GTK_USE_PORTAL=1
 
 # -----------------------------------------------------
 # CUSTOMIZATION

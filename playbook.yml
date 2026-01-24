@@ -121,7 +121,7 @@
     - name: 6. Instalar Pacotes AUR [personal]
       when: ansible_distribution in ["Archlinux", "CachyOS"]
       ansible.builtin.shell:
-        cmd: "yay -S --noconfirm pinta"
+        cmd: "yay -S --noconfirm pinta xdg-desktop-portal-termfilechooser-hunkyburrito-git"
       tags:
         - packages
         - personal
