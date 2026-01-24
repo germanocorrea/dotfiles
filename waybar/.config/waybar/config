@@ -131,21 +131,22 @@
     },
     "temperature": {
       "format": "TEMP:{temperatureC}°C",
-      "tooltip": false,
+      "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+      "input-filename": "temp1_input",
       "interval": 2,
-      "on-click": "kitty -e btop",
+      "on-click": "kitty -e btop"
     },
     "cpu": {
       "format": "CPU:{usage}%",
       "tooltip": false,
       "interval": 2,
-      "on-click": "kitty -e btop",
+      "on-click": "kitty -e btop"
     },
     "memory": {
       "format": "RAM:{}%",
       "tooltip": false,
       "interval": 2,
-      "on-click": "kitty -e btop",
+      "on-click": "kitty -e btop"
     },
     "group/brightvol": {
       "orientation": "horizontal",
