@@ -335,3 +335,11 @@
       package:
         name: "{{ python[ansible_distribution] }}"
         state: present
+    - name: Wallust
+      become: yes
+      command:
+        cmd: cargo install wallust
+    - name: Qobuz TUI
+      become: yes
+      command:
+        cmd: cargo install --git https://github.com/SofusA/qobuz-player
