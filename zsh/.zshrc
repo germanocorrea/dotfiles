@@ -17,6 +17,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:~/.cargo/bin/:~/.local/bin
 export NVM_DIR="$HOME/.nvm"
 export GTK_USE_PORTAL=1
+export GDK_DEBUG=portals
+export QT_QPA_PLATFORMTHEME=xdgdesktopportal
 
 # -----------------------------------------------------
 # CUSTOMIZATION
