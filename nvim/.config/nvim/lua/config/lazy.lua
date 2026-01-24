@@ -22,7 +22,8 @@ require("lazy").setup({
 			import = "lazyvim.plugins",
 			-- Aplica seu override de colorscheme AQUI
 			opts = {
-				colorscheme = "kanagawa-paper",
+				--colorscheme = "kanagawa-paper",
+				colorscheme = "neopywal",
 			},
 		},
 
