@@ -23,7 +23,7 @@
 
 /* idk what all this does */
 window#waybar {
-    background-color: @background;
+    background-color: alpha(@background, 0.9);
     border-bottom: 0;
     color: @text;
     transition: background-color 0.5s;
@@ -41,21 +41,21 @@ window#waybar.empty #window {
 .modules-left {
     margin: 5px 0 0 5px;
     padding: 0 0 0 7px;
-    background-color: @background;
+    background-color: transparent;
     border: 0px solid @focused;
 }
 
 .modules-center {
     margin: 5px 0 0 0;
     padding: 0 5px 0 5px;
-    background-color: @background;
+    background-color: transparent;
     border: 0px solid @focused;
 }
 
 .modules-right {
     margin: 5px 5px 0 0;
     padding: 0 5px 0 5px;
-    background-color: @background;
+    background-color: transparent;
     border: 0px solid @focused;
 }
 

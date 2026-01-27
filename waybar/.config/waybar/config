@@ -3,15 +3,15 @@
     "height": 30,
     "spacing": 5,
     "modules-left": [
-      "group/Utilities",
+      "custom/arch",
       "group/workspaces",
+      "group/cpuram",
       "mpris"
     ],
     "modules-center": [
       "group/windows"
     ],
     "modules-right": [
-      "group/cpuram",
       "group/system"
     ],
     "custom/openbracket": {
@@ -30,11 +30,7 @@
       "orientation": "horizontal",
       "modules": [
         "custom/openbracket",
-        "custom/arch",
         "custom/split",
-        "idle_inhibitor",
-        "custom/powerprofile",
-        // "custom/themeswitcher",
         "custom/closebracket"
       ]
     },
@@ -199,6 +195,9 @@
         "custom/bluetooth",
         "custom/clipboard",
         "hyprland/language",
+        "idle_inhibitor",
+        "custom/powerprofile",
+        // "custom/themeswitcher",
         "custom/split",
         "clock",
         "battery",
@@ -216,7 +215,7 @@
       "expand": true
     },
     "clock": {
-      "format": "{:%H:%M}",
+      "format": "{:%d/%m %H:%M}",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
       "onclick": "kalender"
     },

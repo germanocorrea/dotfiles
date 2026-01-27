@@ -2,18 +2,19 @@ return {
 	-- Temas
 	{
 		"ellisonleao/gruvbox.nvim",
-		"nyoom-engineering/oxocarbon.nvim",
 		"thesimonho/kanagawa-paper.nvim",
 		"savq/melange-nvim",
 		"vague-theme/vague.nvim",
 		"craftzdog/solarized-osaka.nvim",
 		{ "rose-pine/neovim", name = "rose-pine" },
 	},
-
+	{ "xiyaowong/transparent.nvim" },
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+	},
 	{
 		"scottmckendry/cyberdream.nvim",
 		transparent_background = true,
-		saturation = 0.7,
 	},
 
 	{
@@ -100,7 +101,7 @@ return {
 		opts = function(_, opts)
 			table.insert(opts.sections.lualine_x, {
 				function()
-					return "😄"
+					return ""
 				end,
 			})
 		end,
