@@ -1,7 +1,0 @@
-[ ] add fuzzel
-[ ] add swaylock?
-[ ] add swaybg
-[ ] add mako
-[ ] add clipman
-
-dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
