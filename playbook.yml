@@ -140,29 +140,39 @@
               - udiskie
             state: present
           tags: packages
-        - name: 6. Instalar Pacotes AUR [personal]
-          when: ansible_distribution in ["Archlinux", "CachyOS"]
-          become: yes
-          ansible.builtin.shell:
-            cmd: "yay -S --noconfirm pinta xdg-desktop-portal-termfilechooser-hunkyburrito-git clipman"
-          tags:
-            - packages
-            - personal
-            - aur
-        - name: 7. Instalar Pacotes AUR [g15]
-          when: ansible_distribution in ["Archlinux", "CachyOS"]
-          become: yes
-          ansible.builtin.shell:
-            cmd: "yay -S --noconfirm awcc-bin"
-          tags:
-            - packages
-            - g15
-
         - name: Aplicar (stow) dotfiles do Niri
           command:
             cmd: "stow --adopt niri"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
+    - name: 6. Instalar Pacotes AUR [personal]
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - zen-browser-bin
+          - pinta
+          - clipman
+          - xdg-desktop-portal-termfilechooser-hunkyburrito-git
+      # ansible.builtin.shell:
+      # cmd: "yay -S --noconfirm pinta xdg-desktop-portal-termfilechooser-hunkyburrito-git clipman"
+      tags:
+        - packages
+        - personal
+        - aur
+    - name: 7. Instalar Pacotes AUR [g15]
+      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      become: yes
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - awcc-bin
+      # ansible.builtin.shell:
+      # cmd: "yay -S --noconfirm awcc-bin"
+      tags:
+        - packages
+        - g15
 
     - name: Configurar Neovim
       tags:
