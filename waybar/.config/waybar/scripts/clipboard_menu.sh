@@ -1,2 +1,2 @@
 #!/bin/bash
-cliphist list | rofi -dmenu | cliphist decode | wl-copy
+clipman pick --tool=CUSTOM --tool-args="fuzzel -d"
