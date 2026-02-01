@@ -212,25 +212,6 @@
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
-    - name: Configurar Cosmic
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
-      tags:
-        - cosmic
-        - personal
-      block:
-        - name: Instalar pacote Cosmic
-          become: yes
-          package:
-            name: cosmic
-            state: present
-          tags: packages
-
-        - name: Aplicar (stow) dotfiles do Cosmic
-          command:
-            cmd: "stow --adopt cosmic"
-            chdir: "{{ dotfiles_dir }}"
-          tags: dotfiles
-
     - name: Instalar Haskell (GHCup)
       tags:
         - development-base
