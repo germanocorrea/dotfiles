@@ -142,6 +142,7 @@
           tags: packages
         - name: 6. Instalar Pacotes AUR [personal]
           when: ansible_distribution in ["Archlinux", "CachyOS"]
+          become: yes
           ansible.builtin.shell:
             cmd: "yay -S --noconfirm pinta xdg-desktop-portal-termfilechooser-hunkyburrito-git clipman"
           tags:
@@ -150,6 +151,7 @@
             - aur
         - name: 7. Instalar Pacotes AUR [g15]
           when: ansible_distribution in ["Archlinux", "CachyOS"]
+          become: yes
           ansible.builtin.shell:
             cmd: "yay -S --noconfirm awcc-bin"
           tags:
