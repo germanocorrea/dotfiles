@@ -136,7 +136,8 @@
               - swaybg
               - swayidle
               - swaylock
-              - xwayland-satellite udiskie
+              - xwayland-satellite
+              - udiskie
             state: present
           tags: packages
         - name: 6. Instalar Pacotes AUR [personal]
