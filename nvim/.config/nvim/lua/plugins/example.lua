@@ -27,6 +27,8 @@ return {
 		},
 	},
 
+	{ "norcalli/nvim-colorizer.lua" },
+
 	-- Trouble
 	{
 		"folke/trouble.nvim",
