@@ -27,6 +27,14 @@ return {
 		},
 	},
 
+	-- Wrapped
+	{
+		"aikhe/wrapped.nvim",
+		dependencies = { "nvzone/volt" },
+		cmd = { "NvimWrapped" },
+		opts = {},
+	},
+
 	{ "norcalli/nvim-colorizer.lua" },
 
 	-- Trouble
