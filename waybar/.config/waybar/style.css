@@ -23,7 +23,7 @@
 
 /* idk what all this does */
 window#waybar {
-    background-color: alpha(@background, 0.9);
+    background-color: alpha(@background, 0.99);
     border-bottom: 0;
     color: @text;
     transition: background-color 0.5s;
@@ -123,7 +123,7 @@ button {
 #mpris {
     margin: 0 0 0 5px;
     padding: 0 9px;
-    background-color: @background;
+    background-color: transparent;
     color: @text;
 }
 

@@ -139,7 +139,7 @@ layout {
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        on
+        off
 
         width 1
         active-color "#ffc87f"
@@ -257,6 +257,22 @@ animations {
 window-rule {
     // match is-active=false
     // opacity 0.8
+    background-effect {
+        blur true
+        xray true
+    }
+}
+
+layer-rule {
+    background-effect {
+        blur true
+        xray false
+    }
+}
+blur {
+    passes 2
+    offset 2
+    saturation 1.5
 }
 
 // Work around WezTerm's initial configure bug
