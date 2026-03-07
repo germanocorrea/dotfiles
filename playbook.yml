@@ -39,7 +39,7 @@
         - always
 
     - name: 3. Instalar Yay (AUR Helper)
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       tags:
         - aur
         - arch
@@ -83,7 +83,7 @@
         - development-base
 
     - name: 5. Instalar Pacotes [arch-base]
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       become: yes
       package:
         name:
@@ -119,7 +119,7 @@
         - packages
         - personal
     - name: Configurar Niri
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       tags:
         - niri
         - personal
@@ -147,8 +147,8 @@
               - vicinae-bin
               - xdg-desktop-portal-termfilechooser-hunkyburrito-git
         - name: Aplicar (stow) dotfiles do Niri
-          shell:
-            cmd: "stow --adopt niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae && git checkout niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae"
+          command:
+            cmd: "stow --adopt niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
     - name: 6. Instalar Pacotes AUR [personal]
@@ -192,8 +192,8 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do Neovim
-          shell:
-            cmd: "stow --adopt nvim && git checkout nvim"
+          command:
+            cmd: "stow --adopt nvim"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
@@ -231,8 +231,8 @@
             dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 
         - name: 6. Aplicar (stow) dotfiles do Zsh
-          shell:
-            cmd: "stow --adopt zsh && git checkout zsh"
+          command:
+            cmd: "stow --adopt zsh"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
@@ -249,8 +249,8 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do Bash
-          shell:
-            cmd: "stow --adopt bash && git checkout bash"
+          command:
+            cmd: "stow --adopt bash"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
@@ -267,8 +267,8 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do Kitty
-          shell:
-            cmd: "stow --adopt kitty && git checkout kitty"
+          command:
+            cmd: "stow --adopt kitty"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
@@ -285,8 +285,8 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do btop
-          shell:
-            cmd: "stow --adopt btop && git checkout btop"
+          command:
+            cmd: "stow --adopt btop"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
@@ -377,7 +377,7 @@
     - name: Instalação de Python e Pip
       become: yes
       package:
-        name: "{{ python[ansible_distribution] }}"
+        name: "{{ python[ansible_facts['distribution']] }}"
         state: present
 
     - name: Wallust
@@ -387,3 +387,11 @@
     - name: Qobuz TUI
       command:
         cmd: cargo install --git https://github.com/SofusA/qobuz-player
+
+    - name: Restaurar estado original dos dotfiles (Garante que o repo vença o stow --adopt)
+      command:
+        cmd: "git checkout ."
+        chdir: "{{ dotfiles_dir }}"
+      tags:
+        - dotfiles
+        - always
