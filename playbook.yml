@@ -369,10 +369,12 @@
     - name: Wallust
       command:
         cmd: cargo install wallust
+        creates: "~/.cargo/bin/wallust"
 
     - name: Qobuz TUI
       command:
         cmd: cargo install --git https://github.com/SofusA/qobuz-player
+        creates: "~/.cargo/bin/qobuz-player"
 
     - name: Restaurar estado original dos dotfiles (Garante que o repo vença o stow --adopt)
       command:
