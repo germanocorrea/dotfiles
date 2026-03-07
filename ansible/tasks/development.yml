@@ -1,0 +1,48 @@
+---
+- name: Instalar Haskell (GHCup)
+  tags:
+    - development-base
+    - haskell
+  block:
+    - name: Baixar e instalar GHCup (Não-Interativo)
+      ansible.builtin.shell:
+        cmd: "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh"
+        creates: "~/.ghcup/bin/ghcup"
+      environment:
+        BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
+    - name: Instalar fourmolu
+      command:
+        cmd: "cabal install fourmolu"
+        creates: "~/.cabal/bin/fourmolu"
+
+- name: Instalar Rust (Rustup)
+  tags:
+    - development-base
+    - rust
+  block:
+    - name: Baixar e instalar Rustup (Não-Interativo)
+      ansible.builtin.shell:
+        cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+        creates: "~/.cargo/bin/rustup"
+
+- name: Instalar NVM (Node Version Manager)
+  tags:
+    - nvm
+    - development-base
+  block:
+    - name: Baixar e instalar NVM
+      ansible.builtin.shell:
+        cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
+        creates: "~/.nvm/nvm.sh"
+
+- name: Instalar e configurar PHP
+  tags:
+    - development-base
+    - php
+  block:
+    - name: Instalar pacote php
+      become: yes
+      package:
+        name: php
+        state: present
+      tags: packages

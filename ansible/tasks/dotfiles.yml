@@ -1,0 +1,8 @@
+---
+- name: Restaurar estado original dos dotfiles (Garante que o repo vença o stow --adopt)
+  command:
+    cmd: "git checkout ."
+    chdir: "{{ dotfiles_dir }}"
+  tags:
+    - dotfiles
+    - always

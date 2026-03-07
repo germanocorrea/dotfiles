@@ -1,0 +1,36 @@
+---
+- name: Configurar Kitty
+  tags:
+    - kitty
+    - personal
+  block:
+    - name: Instalar pacote Kitty
+      become: yes
+      package:
+        name: kitty
+        state: present
+      tags: packages
+
+    - name: Aplicar (stow) dotfiles do Kitty
+      command:
+        cmd: "stow --adopt kitty"
+        chdir: "{{ dotfiles_dir }}"
+      tags: dotfiles
+
+- name: Configurar btop
+  tags:
+    - btop
+    - personal
+  block:
+    - name: Instalar pacote btop
+      become: yes
+      package:
+        name: btop
+        state: present
+      tags: packages
+
+    - name: Aplicar (stow) dotfiles do btop
+      command:
+        cmd: "stow --adopt btop"
+        chdir: "{{ dotfiles_dir }}"
+      tags: dotfiles

@@ -1,0 +1,57 @@
+---
+- name: Configurar Zsh
+  tags:
+    - zsh
+    - development-base
+  block:
+    - name: Instalar pacote Zsh
+      become: yes
+      package:
+        name: zsh
+        state: present
+      tags: packages
+
+    - name: Trocar a shell padrão do usuário para zsh
+      become: yes
+      user:
+        name: "{{ ansible_facts.user_id }}"
+        shell: /usr/bin/zsh
+
+    - name: Instalar Oh My Zsh (Não-Interativo)
+      shell:
+        cmd: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc'
+        creates: "~/.oh-my-zsh"
+
+    - name: Instalar plugin zsh-syntax-highlighting
+      git:
+        repo: "https://github.com/zsh-users/zsh-syntax-highlighting"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+    - name: Instalar plugin zsh-autosuggestions
+      git:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions"
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+    - name: Aplicar (stow) dotfiles do Zsh
+      command:
+        cmd: "stow --adopt zsh"
+        chdir: "{{ dotfiles_dir }}"
+      tags: dotfiles
+
+- name: Configurar Bash
+  tags:
+    - bash
+    - development-base
+  block:
+    - name: Instalar pacote Bash
+      become: yes
+      package:
+        name: bash
+        state: present
+      tags: packages
+
+    - name: Aplicar (stow) dotfiles do Bash
+      command:
+        cmd: "stow --adopt bash"
+        chdir: "{{ dotfiles_dir }}"
+      tags: dotfiles

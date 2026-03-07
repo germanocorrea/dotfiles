@@ -1,0 +1,28 @@
+---
+- name: Instalar Neovim (Ubuntu)
+  when: ansible_facts['distribution'] == 'Ubuntu'
+  become: yes
+  block:
+    - name: Adicionar PPA do Neovim
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/unstable
+        state: present
+    - name: Instalar Neovim
+      apt:
+        name: neovim
+        state: present
+  tags: packages
+
+- name: Instalar Neovim (Arch/CachyOS)
+  when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
+  become: yes
+  package:
+    name: neovim
+    state: present
+  tags: packages
+
+- name: Aplicar (stow) dotfiles do Neovim
+  command:
+    cmd: "stow --adopt nvim"
+    chdir: "{{ dotfiles_dir }}"
+  tags: dotfiles

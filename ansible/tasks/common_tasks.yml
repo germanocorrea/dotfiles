@@ -1,0 +1,21 @@
+---
+- name: Importar Tarefas de Desenvolvimento
+  import_tasks: development.yml
+
+- name: Importar Tarefas de Neovim
+  import_tasks: neovim.yml
+
+- name: Importar Tarefas de Shell (Zsh/Bash)
+  import_tasks: shell.yml
+
+- name: Importar Tarefas de Terminal (Kitty/btop)
+  import_tasks: terminal_apps.yml
+
+- name: Importar Tarefas de Python
+  import_tasks: python.yml
+
+- name: Importar Tarefas de Apps Pessoais
+  import_tasks: personal_apps.yml
+
+- name: Importar Tarefas de Dotfiles
+  import_tasks: dotfiles.yml

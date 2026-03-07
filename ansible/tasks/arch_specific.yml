@@ -1,0 +1,120 @@
+---
+- name: Instalar Yay (AUR Helper)
+  tags:
+    - aur
+    - arch
+  block:
+    - name: Instalar dependências (git, base-devel)
+      become: yes
+      package:
+        name:
+          - git
+          - base-devel
+          - go
+        state: present
+
+    - name: Clonar repositório do yay para /tmp
+      ansible.builtin.git:
+        repo: "https://aur.archlinux.org/yay.git"
+        dest: "/tmp/yay"
+        clone: yes
+        update: no
+
+    - name: Construir e instalar o yay (makepkg)
+      ansible.builtin.shell:
+        cmd: "makepkg -si --noconfirm"
+        chdir: "/tmp/yay"
+        creates: "/usr/bin/yay"
+
+- name: Instalar Pacotes [arch-base]
+  become: yes
+  package:
+    name:
+      - buildah
+      - go
+      - podman
+      - podman-compose
+      - bat
+      - eza
+      - base-devel
+      - tree-sitter
+      - jdk-openjdk
+      - distrobox
+    state: present
+  tags:
+    - packages
+    - arch-base
+
+- name: Configurar Niri
+  tags:
+    - niri
+    - personal
+  block:
+    - name: Instalar pacotes do Niri
+      become: yes
+      package:
+        name:
+          - mako
+          - xdg-desktop-portal-gnome
+          - xdg-desktop-portal-gtk
+          - swaybg
+          - swaylock
+          - xwayland-satellite
+          - udiskie
+        state: present
+      tags: packages
+    - name: Instalar niri (temporariamente o wip)
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - niri-wip-git
+          - vicinae-bin
+          - xdg-desktop-portal-termfilechooser-hunkyburrito-git
+    - name: Aplicar (stow) dotfiles do Niri
+      command:
+        cmd: "stow --adopt niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae"
+        chdir: "{{ dotfiles_dir }}"
+      tags: dotfiles
+
+- name: Instalar Pacotes AUR [personal]
+  become: yes
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - zen-browser-bin
+      - pinta
+  tags:
+    - packages
+    - personal
+    - aur
+
+- name: Instalar Pacotes AUR [g15]
+  become: yes
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - awcc-bin
+  tags:
+    - packages
+    - g15
+
+- name: Configurar Virtualizacao
+  tags:
+    - personal
+  block:
+    - name: Instalar pacotes
+      become: yes
+      package:
+        name:
+          - libvirt
+          - virt-manager
+          - qemu-full
+        state: present
+      tags: packages
+
+    - name: Habilitar e iniciar libvirtd.socket
+      become: yes
+      ansible.builtin.systemd:
+        name: libvirtd.socket
+        enabled: true
+        state: started

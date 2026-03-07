@@ -1,0 +1,24 @@
+---
+- name: Configurar Estação de Trabalho (Archlinux/CachyOS)
+  hosts: localhost
+  connection: local
+
+  vars:
+    dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
+    dotfiles_repo: "git@github.com:germanocorrea/dotfiles.git"
+
+  pre_tasks:
+    - name: Validar Distribuição (Archlinux/CachyOS)
+      fail:
+        msg: "Este playbook é específico para Archlinux ou CachyOS."
+      when: ansible_facts['distribution'] not in ["Archlinux", "CachyOS"]
+
+  tasks:
+    - name: Importar Tarefas Base
+      import_tasks: tasks/base.yml
+
+    - name: Importar Tarefas Específicas de Arch
+      import_tasks: tasks/arch_specific.yml
+
+    - name: Importar Tarefas Comuns
+      import_tasks: tasks/common_tasks.yml

@@ -1,0 +1,21 @@
+---
+- name: Configurar Estação de Trabalho (Ubuntu)
+  hosts: localhost
+  connection: local
+
+  vars:
+    dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
+    dotfiles_repo: "git@github.com:germanocorrea/dotfiles.git"
+
+  pre_tasks:
+    - name: Validar Distribuição (Ubuntu)
+      fail:
+        msg: "Este playbook é específico para Ubuntu."
+      when: ansible_facts['distribution'] != "Ubuntu"
+
+  tasks:
+    - name: Importar Tarefas Base
+      import_tasks: tasks/base.yml
+
+    - name: Importar Tarefas Comuns
+      import_tasks: tasks/common_tasks.yml

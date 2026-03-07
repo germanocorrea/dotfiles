@@ -1,0 +1,25 @@
+---
+- name: Instalar Pacotes [personal]
+  become: yes
+  package:
+    name:
+      - solaar
+      - android-file-transfer
+      - calibre
+      - gimp
+      - kdenlive
+      - vlc
+    state: present
+  tags:
+    - packages
+    - personal
+
+- name: Wallust
+  command:
+    cmd: cargo install wallust
+    creates: "~/.cargo/bin/wallust"
+
+- name: Qobuz TUI
+  command:
+    cmd: cargo install --git https://github.com/SofusA/qobuz-player
+    creates: "~/.cargo/bin/qobuz-player"
