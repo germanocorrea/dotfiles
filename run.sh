@@ -65,14 +65,31 @@ else
 fi
 
 # 4. Execute Remote Playbook
-log "Downloading and executing playbook..."
-PLAYBOOK_URL="https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/playbook.yml"
+log "Detecting OS for playbook selection..."
+source /etc/os-release
+
+if [[ "$ID" == "arch" || "$ID" == "cachyos" || "$ID_LIKE" == *"arch"* ]]; then
+  PLAYBOOK_NAME="playbook_arch.yml"
+elif [[ "$ID" == "ubuntu" || "$ID_LIKE" == *"ubuntu"* ]]; then
+  PLAYBOOK_NAME="playbook_ubuntu.yml"
+else
+  echo "Error: Unsupported distribution for playbook execution."
+  exit 1
+fi
+
+log "Downloading and executing $PLAYBOOK_NAME..."
+PLAYBOOK_URL="https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/ansible/$PLAYBOOK_NAME"
 TEMP_PLAYBOOK=$(mktemp)
 
 # Download the playbook to a temp file
 curl -sSL "$PLAYBOOK_URL" -o "$TEMP_PLAYBOOK"
 
 # Run the playbook
+# Note: We need to pass the base directory for includes if running "remote"
+# However, since the tasks use relative paths, we should ideally clone the repo first
+# or run from the local copy if it exists. 
+# For a truly "remote" single-file execution to work with imports, 
+# Ansible requires the task files to be present.
 ansible-playbook "$TEMP_PLAYBOOK" --ask-become-pass
 
 # Cleanup
