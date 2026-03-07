@@ -338,19 +338,6 @@
             state: present
           tags: packages
 
-        - name: Instalar phpactor
-          command:
-            cmd: "curl -Lo phpactor https://github.com/phpactor/phpactor/releases/latest/download/phpactor.phar"
-            chdir: "~/.local/bin"
-            creates: "~/.local/bin/phpactor"
-          tags: packages
-
-        - name: Permissão do phpactor
-          command:
-            cmd: "chmod a+x phpactor"
-            chdir: "~/.local/bin"
-          tags: packages
-
     - name: Configurar Virtualizacao
       when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       tags:
