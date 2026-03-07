@@ -155,6 +155,7 @@
           - pinta
           - clipman
           - xdg-desktop-portal-termfilechooser-hunkyburrito-git
+          - vicinae-bin
       # ansible.builtin.shell:
       # cmd: "yay -S --noconfirm pinta xdg-desktop-portal-termfilechooser-hunkyburrito-git clipman"
       tags:

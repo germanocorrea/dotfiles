@@ -45,8 +45,8 @@ output "eDP-1" {
 }
 
 output "HDMI-A-1" {
-    mode "1920x1080@60.000"
-    scale 0.9
+    mode "2560x1440@143.999"
+    scale 1
     transform "normal"
 }
 
@@ -213,8 +213,9 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
-spawn-at-startup "swaybg -i '/home/gege/Pictures/Wallpapers/Ultraviolet Drift Gradient Wallpaper_Macbook.png' -o '*' -m fill"
-spawn-at-startup "wl-paste -t text --watch clipman store"
+spawn-at-startup "vicinae" "server"
+spawn-at-startup "swaybg" "-i" "'/home/gege/Pictures/Wallpapers/Ultraviolet Drift Gradient Wallpaper_Macbook.png'" "-o" "'*'" "-m" "fill"
+// spawn-at-startup "wl-paste -t text --watch clipman store"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -270,9 +271,9 @@ layer-rule {
     }
 }
 blur {
-    passes 2
-    offset 2
-    saturation 1.5
+    // passes 2
+    // offset 2
+    saturation 0.8
 }
 
 // Work around WezTerm's initial configure bug
@@ -332,7 +333,9 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Return hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    // Mod+Return hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+Return hotkey-overlay-title="Vicinae" repeat=false { spawn "vicinae" "toggle"; }
+    Mod+P hotkey-overlay-title="Clipboard" repeat=false { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
     Mod+E hotkey-overlay-title="Open file explorer: yazi" { spawn "kitty -e yazi"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
