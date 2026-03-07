@@ -152,7 +152,7 @@
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
     - name: 6. Instalar Pacotes AUR [personal]
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -166,7 +166,7 @@
         - personal
         - aur
     - name: 7. Instalar Pacotes AUR [g15]
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       become: yes
       kewlfft.aur.aur:
         use: yay
@@ -184,7 +184,7 @@
         - development-base
       block:
         - name: Instalar pacote Neovim
-          when: ansible_distribution in ["Archlinux", "CachyOS"]
+          when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
           become: yes
           package:
             name: neovim
@@ -346,14 +346,13 @@
           tags: packages
 
         - name: Permissão do phpactor
-          become: yes
           command:
             cmd: "chmod a+x phpactor"
             chdir: "~/.local/bin"
           tags: packages
 
     - name: Configurar Virtualizacao
-      when: ansible_distribution in ["Archlinux", "CachyOS"]
+      when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
       tags:
         - personal
       block:
