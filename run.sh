@@ -41,57 +41,42 @@ fi
 
 # 3. Handle Dotfiles Git Repository
 DOTFILES_DIR="$HOME/dotfiles"
+REPO_HTTPS="https://github.com/germanocorrea/dotfiles.git"
 
-if [ -d "$DOTFILES_DIR" ]; then
-  log "Checking $DOTFILES_DIR..."
-  cd "$DOTFILES_DIR"
-
-  # Check for uncommitted changes (staged or unstaged)
-  if [[ -n $(git status --porcelain) ]]; then
-    log "Uncommitted changes found. Committing..."
-    git add .
-    git commit -m "Uncommited changes before running playbook"
-  fi
-
-  # Check for unpushed changes
-  if [[ -n $(git log --branches --not --remotes) ]]; then
-    log "Unpushed changes found. Pushing..."
-    git push
-  fi
-
-  cd - >/dev/null
-else
-  log "Directory ~/dotfiles does not exist. Skipping git checks."
+if [ ! -d "$DOTFILES_DIR" ]; then
+  log "Cloning dotfiles repository from $REPO_HTTPS..."
+  git clone "$REPO_HTTPS" "$DOTFILES_DIR"
 fi
 
-# 4. Execute Remote Playbook
+cd "$DOTFILES_DIR"
+
+# Check for uncommitted changes (staged or unstaged)
+if [[ -n $(git status --porcelain) ]]; then
+  log "Uncommitted changes found. Committing..."
+  git add .
+  git commit -m "Uncommited changes before running playbook"
+fi
+
+# Check for unpushed changes
+if [[ -n $(git log --branches --not --remotes) ]]; then
+  log "Unpushed changes found. Pushing..."
+  git push
+fi
+
+# 4. Execute Playbook
 log "Detecting OS for playbook selection..."
 source /etc/os-release
 
 if [[ "$ID" == "arch" || "$ID" == "cachyos" || "$ID_LIKE" == *"arch"* ]]; then
-  PLAYBOOK_NAME="playbook_arch.yml"
+  PLAYBOOK_PATH="ansible/playbook_arch.yml"
 elif [[ "$ID" == "ubuntu" || "$ID_LIKE" == *"ubuntu"* ]]; then
-  PLAYBOOK_NAME="playbook_ubuntu.yml"
+  PLAYBOOK_PATH="ansible/playbook_ubuntu.yml"
 else
   echo "Error: Unsupported distribution for playbook execution."
   exit 1
 fi
 
-log "Downloading and executing $PLAYBOOK_NAME..."
-PLAYBOOK_URL="https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/ansible/$PLAYBOOK_NAME"
-TEMP_PLAYBOOK=$(mktemp)
+log "Executing local playbook: $PLAYBOOK_PATH..."
+ansible-playbook "$PLAYBOOK_PATH" --ask-become-pass
 
-# Download the playbook to a temp file
-curl -sSL "$PLAYBOOK_URL" -o "$TEMP_PLAYBOOK"
-
-# Run the playbook
-# Note: We need to pass the base directory for includes if running "remote"
-# However, since the tasks use relative paths, we should ideally clone the repo first
-# or run from the local copy if it exists. 
-# For a truly "remote" single-file execution to work with imports, 
-# Ansible requires the task files to be present.
-ansible-playbook "$TEMP_PLAYBOOK" --ask-become-pass
-
-# Cleanup
-rm "$TEMP_PLAYBOOK"
 log "Done."
