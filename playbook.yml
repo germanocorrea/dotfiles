@@ -236,6 +236,24 @@
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
 
+    - name: Configurar Bash
+      tags:
+        - bash
+        - development-base
+      block:
+        - name: Instalar pacote Bash
+          become: yes
+          package:
+            name: bash
+            state: present
+          tags: packages
+
+        - name: Aplicar (stow) dotfiles do Bash
+          command:
+            cmd: "stow --adopt bash"
+            chdir: "{{ dotfiles_dir }}"
+          tags: dotfiles
+
     - name: Configurar Kitty
       tags:
         - kitty
