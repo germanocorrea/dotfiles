@@ -147,7 +147,7 @@
               - vicinae-bin
               - xdg-desktop-portal-termfilechooser-hunkyburrito-git
         - name: Aplicar (stow) dotfiles do Niri
-          command:
+          shell:
             cmd: "stow --adopt niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae && git checkout niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
@@ -192,7 +192,7 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do Neovim
-          command:
+          shell:
             cmd: "stow --adopt nvim && git checkout nvim"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
@@ -231,7 +231,7 @@
             dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 
         - name: 6. Aplicar (stow) dotfiles do Zsh
-          command:
+          shell:
             cmd: "stow --adopt zsh && git checkout zsh"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
@@ -249,7 +249,7 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do Bash
-          command:
+          shell:
             cmd: "stow --adopt bash && git checkout bash"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
@@ -267,7 +267,7 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do Kitty
-          command:
+          shell:
             cmd: "stow --adopt kitty && git checkout kitty"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
@@ -285,7 +285,7 @@
           tags: packages
 
         - name: Aplicar (stow) dotfiles do btop
-          command:
+          shell:
             cmd: "stow --adopt btop && git checkout btop"
             chdir: "{{ dotfiles_dir }}"
           tags: dotfiles
