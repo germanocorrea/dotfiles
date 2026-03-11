@@ -83,6 +83,7 @@
     name:
       - zen-browser-bin
       - pinta
+      - android-studio
   tags:
     - packages
     - personal
