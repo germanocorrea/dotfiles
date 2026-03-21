@@ -89,15 +89,15 @@
     - personal
     - aur
 
-- name: Instalar Pacotes AUR [g15]
-  become: yes
-  kewlfft.aur.aur:
-    use: yay
-    name:
-      - awcc-bin
-  tags:
-    - packages
-    - g15
+# - name: Instalar Pacotes AUR [g15]
+#   become: yes
+#   kewlfft.aur.aur:
+#     use: yay
+#     name:
+#       - awcc-bin
+#   tags:
+#     - packages
+#     - g15
 
 - name: Configurar Virtualizacao
   tags:
