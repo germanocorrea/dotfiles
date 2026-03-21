@@ -1,1 +1,1 @@
-swaybg -i '/home/gege/Pictures/Wallpapers/Ultraviolet Drift Gradient Wallpaper_Macbook.png' -o '*' -m fill
+swaybg -i '/home/gege/dotfiles/current_bg.png' -o '*' -m fill
