@@ -13,13 +13,3 @@
   tags:
     - base
     - always
-
-- name: Clonar repositório de dotfiles
-  git:
-    repo: "{{ dotfiles_repo }}"
-    dest: "{{ dotfiles_dir }}"
-    version: main
-    force: yes
-  tags:
-    - base
-    - always
