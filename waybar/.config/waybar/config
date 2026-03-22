@@ -1,7 +1,8 @@
 [
     {
         "height": 30,
-        "spacing": 5,
+        "reload_style_on_change": true,
+        "margin": "8px 10px 0 10px",
         "modules-left": [
             "custom/arch",
             "group/workspaces",
@@ -26,34 +27,31 @@
             "format": "|",
             "tooltip": false
         },
-        "group/Utilities": {
-            "orientation": "horizontal",
-            "modules": [
-                "custom/openbracket",
-                "custom/split",
-                "custom/closebracket"
-            ]
-        },
+        // "group/Utilities": {
+        //     "orientation": "horizontal",
+        //     "modules": [
+        //         "custom/openbracket",
+        //         "custom/split",
+        //         "custom/closebracket"
+        //     ]
+        // },
         "custom/arch": {
             "format": "󰣇",
             "tooltip": false,
-            "on-click": "rofi -show drun"
+            "on-click": "vicinae toggle"
         },
         "custom/powerprofile": {
             "exec": "~/.config/waybar/scripts/powerprofile.sh display",
-            "on-click": "~/.config/waybar/scripts/powerprofile.sh toggle",
+            "on-click": "vicinae vicinae://extensions/botkooper/power-profile/power-profile",
             "interval": 5,
-            "tooltip": true,
-            "exec-tooltip": "~/.config/waybar/scripts/powerprofile.sh tooltip",
-            "tooltip-format": "Power Profile: {} \nClick to cycle: Efficient → Normal → Overclocked"
         },
-        "custom/themeswitcher": {
-            "format": "",
-            "tooltip": true,
-            "tooltip-format": "Click to change theme",
-            "on-click": "~/.config/waybar/scripts/theme-switcher.sh next",
-            "on-click-right": "~/.config/scripts/theme-switcher.sh random"
-        },
+        // "custom/themeswitcher": {
+        //     "format": "",
+        //     "tooltip": true,
+        //     "tooltip-format": "Click to change theme",
+        //     "on-click": "~/.config/waybar/scripts/theme-switcher.sh next",
+        //     "on-click-right": "~/.config/scripts/theme-switcher.sh random"
+        // },
         "group/workspaces": {
             "orientation": "horizontal",
             "modules": [
@@ -103,7 +101,7 @@
         },
         "niri/window": {
             "format": "{title}",
-            "max-length": 20,
+            "max-length": 60,
             "min-length": 0,
             "all-outputs": true
         },
@@ -152,13 +150,12 @@
             "scroll-step": 5,
             "format": "{icon}{volume}%",
             "format-bluetooth": "{icon}{volume}% ",
-            "format-bluetooth-muted": " {icon}",
-            // "format-muted": "",
-	    "format-muted": "󰝟",
+            "format-bluetooth-muted": "󰂲 {icon}",
+            "format-muted": "󰝟",
             "format-icons": {
                 "headphone": "",
-                "hands-free": "",
-                "headset": "",
+                "hands-free": "󰥰",
+                "headset": "󰋎",
                 "phone": "",
                 "portable": "",
                 "car": "",
@@ -190,7 +187,7 @@
                 "custom/bluetooth",
                 "custom/clipboard",
                 "niri/language",
-                "idle_inhibitor",
+                // "idle_inhibitor",
                 "custom/powerprofile",
                 // "custom/themeswitcher",
                 "custom/split",
@@ -217,7 +214,7 @@
         "custom/clipboard": {
             "format": "",
             "tooltip": false,
-            "on-click": "~/.config/waybar/scripts/clipboard_menu.sh"
+            "on-click": "vicinae vicinae://extensions/vicinae/clipboard/history"
         },
         "battery": {
             "states": {
@@ -226,7 +223,7 @@
             },
             "format": "{icon} {capacity}%",
             "format-full": "{icon} {capacity}%",
-            "format-charging": " {capacity}%",
+            "format-charging": "  {capacity}%",
             "format-plugged": "  {capacity}%",
             "format-icons": [
                 "",
@@ -256,7 +253,7 @@
             "format-ethernet": "󰈀",
             "format-disconnected": "󰖪",
             "tooltip-format": "{ipaddr}\n{ssid} ({signalStrength}%)",
-            "on-click": "kitty -e nmtui",
+            "on-click": "vicinae vicinae://extensions/dagimg-dot/wifi-commander/scan-wifi",
             "format-icons": [
                 "󰤯",
                 "󰤟",
@@ -269,7 +266,7 @@
             "format": "{}",
             "exec": "~/.config/waybar/scripts/bluetooth_status.sh",
             "interval": 5,
-            "on-click": "blueman-manager"
+            "on-click": "vicinae vicinae://extensions/Gelei/bluetooth/devices"
         },
         "group/clock": {
             "orientation": "horizontal",
