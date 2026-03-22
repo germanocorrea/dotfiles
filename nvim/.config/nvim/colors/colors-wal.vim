@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/gege/Pictures/Wallpapers/wallhaven-j3qpzq.png"
+let background = "#251921"
+let foreground = "#dbbfa3"
+let cursor     = "#dbbfa3"
+
+" Colors
+let color0  = "#251921"
+let color1  = "#A4593D"
+let color2  = "#8F5347"
+let color3  = "#A35D44"
+let color4  = "#A16043"
+let color5  = "#B06E4C"
+let color6  = "#BE8254"
+let color7  = "#dbbfa3"
+let color8  = "#998572"
+let color9  = "#A4593D"
+let color10 = "#8F5347"
+let color11 = "#A35D44"
+let color12 = "#A16043"
+let color13 = "#B06E4C"
+let color14 = "#BE8254"
+let color15 = "#dbbfa3"
