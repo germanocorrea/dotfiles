@@ -17,8 +17,8 @@ input {
     touchpad {
         tap
         natural-scroll
-        // accel-speed 0.2
-        accel-profile "flat"
+        accel-speed 0.2
+        //accel-profile "flat"
     }
 
     mouse {
@@ -36,12 +36,13 @@ input {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+
 output "eDP-1" {
-    mode "1920x1080@120.030"
+//    mode "1920x1080@120.030"
     scale 1
     transform "normal"
     position x=1280 y=0
-    variable-refresh-rate
+//    variable-refresh-rate
 }
 
 output "HDMI-A-1" {

@@ -121,7 +121,7 @@
         },
         "temperature": {
             "format": "TEMP:{temperatureC}°C",
-            "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+            "hwmon-path-abs": "/sys/devices/platform/thinkpad_hwmon/hwmon",
             "input-filename": "temp1_input",
             "interval": 2,
             "on-click": "kitty -e btop"
@@ -153,7 +153,8 @@
             "format": "{icon}{volume}%",
             "format-bluetooth": "{icon}{volume}% ",
             "format-bluetooth-muted": " {icon}",
-            "format-muted": "",
+            // "format-muted": "",
+	    "format-muted": "󰝟",
             "format-icons": {
                 "headphone": "",
                 "hands-free": "",

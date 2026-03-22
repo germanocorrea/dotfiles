@@ -10,11 +10,6 @@
         creates: "~/.ghcup/bin/ghcup"
       environment:
         BOOTSTRAP_HASKELL_NONINTERACTIVE: "1"
-    - name: Instalar fourmolu
-      command:
-        cmd: "cabal install fourmolu"
-        creates: "~/.cabal/bin/fourmolu"
-
 - name: Instalar Rust (Rustup)
   tags:
     - development-base

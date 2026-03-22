@@ -17,13 +17,20 @@
    },
    "theme": {
       "dark": {
-         "name": "catppuccin-mocha"
+         "name": "rose-pine"
       }
    },
    "launcher_window": {
       "opacity": 0.75
    },
    "providers": {
+      "@knoopx/store.vicinae.github": {
+         "preferences": {
+            "defaultIssueFilter": "my",
+            "defaultRepositoryFilter": "my",
+            "numberOfResults": "50"
+         }
+      },
       "applications": {
          "preferences": {
             "defaultAction": "launch",
