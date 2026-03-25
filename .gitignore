@@ -2,7 +2,12 @@ cosmic/.config/cosmic/com.system76.CosmicAppList/*
 cosmic/.config/cosmic/com.system76.CosmicComp/v1/xkb_config
 cosmic/.config/cosmic/com.system76.CosmicAppletAudio/*
 nvim/.config/nvim/lazy-lock.json
-vicinae/.local/share/vicinae/clipboard-data/*
+vicinae/.local/share/*
+!vicinae/.local/share/extensions
+!vicinae/.local/share/scripts
+!vicinae/.local/share/snippets
+!vicinae/.local/share/themes
 vicinae/**/*.db
 vicinae/**/.cache/*
 vicinae/**/cache/*
+
