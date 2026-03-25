@@ -12,7 +12,8 @@
    "$schema": "https://vicinae.com/schemas/config.json",
    "font": {
       "normal": {
-         "family": "Inter Variable"
+         "family": "Inter Variable",
+         "size": 12
       }
    },
    "theme": {
@@ -21,7 +22,7 @@
       }
    },
    "launcher_window": {
-      "opacity": 0.75
+      "opacity": 0.85
    },
    "providers": {
       "@knoopx/store.vicinae.github": {
