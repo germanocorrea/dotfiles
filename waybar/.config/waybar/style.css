@@ -101,12 +101,12 @@ button {
 }
 
 #workspaces button:hover {
-    background-color: @second-background;
+    background-color: @color1;
 }
 
 #workspaces button.active {
     color: @focused2;
-    background-color: @second-background;
+    background-color: @color1;
 }
 
 #workspaces button.urgent {
@@ -208,7 +208,7 @@ button {
 
 @keyframes blink {
     to {
-        background-color: @second-background;
+        background-color: @color1;
         color: @text;
     }
 }

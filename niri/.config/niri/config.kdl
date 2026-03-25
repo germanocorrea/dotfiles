@@ -25,8 +25,13 @@ input {
         // accel-speed 0.2
         // accel-profile "flat"
     }
-    warp-mouse-to-focus
 
+    trackpoint {
+        accel-speed 0.1
+        accel-profile "flat"
+    }
+
+    warp-mouse-to-focus
     focus-follows-mouse max-scroll-amount="0%"
 }
 
@@ -273,8 +278,7 @@ layer-rule {
 }
 blur {
     passes 2
-    offset 2
-    saturation 0.8
+    //saturation 0.8
 }
 
 // Work around WezTerm's initial configure bug
@@ -317,6 +321,10 @@ window-rule {
     clip-to-geometry true
 }
 
+overview {
+    backdrop-color "#080310";
+}
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -338,7 +346,7 @@ binds {
     Mod+Return hotkey-overlay-title="Vicinae" repeat=false { spawn "vicinae" "toggle"; }
     Mod+P hotkey-overlay-title="Clipboard" repeat=false { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
     Mod+E hotkey-overlay-title="Open file explorer: yazi" { spawn "kitty -e yazi"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L allow-when-locked=true hotkey-overlay-title="Lock the Screen: swaylock" { spawn "bash" "/home/gege/dotfiles/lock.sh"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

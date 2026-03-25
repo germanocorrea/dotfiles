@@ -43,7 +43,6 @@ plugins=(
     dirhistory
     podman
     apache2-macports
-    common-aliases
     last-working-dir
     mysql-macports
     systemd
@@ -54,6 +53,7 @@ plugins=(
     torrent
     vi-mode
     zsh-syntax-highlighting
+    alias-finder
 )
 
 # Set-up oh-my-zsh
