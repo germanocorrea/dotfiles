@@ -184,7 +184,7 @@ require('transparent').setup { -- Optional, you don't have to run setup.
 
 require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure' }
 
-vim.cmd("colorscheme oxocarbon")
+vim.cmd("colorscheme rose-pine")
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure' },
