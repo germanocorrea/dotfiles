@@ -1,67 +1,17 @@
-
--- Set <space> as the leader key
--- See `:h mapleader`
--- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
-
--- OPTIONS
---
--- See `:h vim.o`
--- NOTE: You can change these options as you wish!
--- For more options, you can see `:h option-list`
--- To see documentation for an option, you can use `:h 'optionname'`, for example `:h 'number'`
--- (Note the single quotes)
-
 vim.o.number = true -- Show line numbers in a column.
-
--- Show line numbers relative to where the cursor is.
--- Affects the 'number' option above, see `:h number_relativenumber`.
 vim.o.relativenumber = false
-
--- Sync clipboard between OS and Neovim. Schedule the setting after `UIEnter` because it can
--- increase startup-time. Remove this option if you want your OS clipboard to remain independent.
--- See `:h 'clipboard'`
 vim.api.nvim_create_autocmd('UIEnter', {
   callback = function()
     vim.o.clipboard = 'unnamedplus'
   end,
 })
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
-vim.o.cursorline = true -- Highlight the line where the cursor is on.
+vim.o.cursorline = false -- Highlight the line where the cursor is on.
 vim.o.scrolloff = 5 -- Keep this many screen lines above/below the cursor.
 vim.o.list = true -- Show <tab> and trailing spaces.
-
--- If performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s). See `:h 'confirm'`
 vim.o.confirm = true
-
--- KEYMAPS
---
--- See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
-
--- Use <Esc> to exit terminal mode
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-
--- Map <A-j>, <A-k>, <A-h>, <A-l> to navigate between windows in any modes
-vim.keymap.set({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h')
-vim.keymap.set({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j')
-vim.keymap.set({ 't', 'i' }, '<A-k>', '<C-\\><C-n><C-w>k')
-vim.keymap.set({ 't', 'i' }, '<A-l>', '<C-\\><C-n><C-w>l')
-vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
-vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
-vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
-vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
-
--- Source - https://stackoverflow.com/a/74584098
--- Posted by Brotify Force, modified by community. See post 'Timeline' for change history
--- Retrieved 2026-04-03, License - CC BY-SA 4.0
-
-vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
-
 -- AUTOCOMMANDS (EVENT HANDLERS)
 --
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
@@ -127,6 +77,22 @@ vim.pack.add({
   -- signature of method as you type
   'https://github.com/ray-x/lsp_signature.nvim',
 
+  -- mostra a cor dos hex no codigo
+  'https://github.com/norcalli/nvim-colorizer.lua',
+
+  -- telescope dependency
+  'https://github.com/nvim-lua/plenary.nvim',
+  -- fuzzy finder
+  'https://github.com/nvim-telescope/telescope.nvim',
+  -- native telescope sorter
+  'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+
+  -- mostra os comandos disponiveis quando eu começo algum
+  'https://github.com/folke/which-key.nvim',
+
+  -- abre e fecha pares junto, tipo {}
+  'https://github.com/windwp/nvim-autopairs',
+
   -- colorschemes
   'https://github.com/rose-pine/neovim',
   'https://github.com/nyoom-engineering/oxocarbon.nvim',
@@ -149,6 +115,10 @@ require('lsp-lens').setup {
 	},
 }
 require('rose-pine')
+
+require ('which-key')
+
+require('nvim-autopairs').setup {}
 
 require('transparent').setup { -- Optional, you don't have to run setup.
     groups = {           -- table: default groups
@@ -182,6 +152,9 @@ require('transparent').setup { -- Optional, you don't have to run setup.
     exclude_groups = {}, -- table: groups you don't want to clear
 }
 
+-- require('colorizer').setup {}
+-- vim.cmd("set termguicolors")
+
 require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure' }
 
 vim.cmd("colorscheme rose-pine")
@@ -204,4 +177,29 @@ vim.lsp.codelens.enable(true)
 vim.lsp.linked_editing_range.enable(true)
 vim.lsp.inlay_hint.enable(true)
 vim.lsp.inline_completion.enable(true)
+
+vim.cmd("let g:clipboard = 'wl-copy'")
+
+-- Use <Esc> to exit terminal mode
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+-- Map <A-j>, <A-k>, <A-h>, <A-l> to navigate between windows in any modes
+vim.keymap.set({ 't', 'i' }, '<A-h>', '<C-\\><C-n><C-w>h')
+vim.keymap.set({ 't', 'i' }, '<A-j>', '<C-\\><C-n><C-w>j')
+vim.keymap.set({ 't', 'i' }, '<A-k>', '<C-\\><C-n><C-w>k')
+vim.keymap.set({ 't', 'i' }, '<A-l>', '<C-\\><C-n><C-w>l')
+vim.keymap.set({ 'n' }, '<A-h>', '<C-w>h')
+vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
+vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
+vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- Source - https://stackoverflow.com/a/74584098
+-- Posted by Brotify Force, modified by community. See post 'Timeline' for change history
+-- Retrieved 2026-04-03, License - CC BY-SA 4.0
+vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+
 
