@@ -4,6 +4,11 @@ environment {
     TERM_CMD "kitty"
 }
 
+cursor {
+	xcursor-theme "BreezeX-RosePine-Linux"
+	xcursor-size 24
+}
+
 // https://yalter.github.io/niri/Configuration:-Input
 input {
     keyboard {
@@ -17,7 +22,7 @@ input {
     touchpad {
         tap
         natural-scroll
-        accel-speed 0.2
+        accel-speed 0.3
         //accel-profile "flat"
     }
 
@@ -104,12 +109,12 @@ layout {
     // `draw-border-with-background`.
 
     // You can change how the focus ring looks.
-    focus-ring {
+    // focus-ring {
         // Uncomment this line to disable the focus ring.
-        off
+        // off
 
         // How many logical pixels the ring extends out from the windows.
-        width 4
+        // width 4
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
@@ -117,13 +122,13 @@ layout {
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#7fc8ff"
+        // active-color "#7fc8ff"
 
         // Color of the ring on inactive monitors.
         //
         // The focus ring only draws around the active window, so the only place
         // where you can see its inactive-color is on other monitors.
-        inactive-color "#505050"
+        // inactive-color "#505050"
 
         // You can also use gradients. They take precedence over solid colors.
         // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
@@ -139,17 +144,20 @@ layout {
         // To do that, set relative-to="workspace-view".
         //
         // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
-    }
+    // }
 
     // You can also add a border. It's similar to the focus ring, but always visible.
+	focus-ring {
+		off
+	}
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        off
+        // off
 
-        width 1
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        width 2
+        // active-color "#ffc87f"
+        // inactive-color "#505050"
 
         // Color of the border around windows that request your attention.
         urgent-color "#9b0000"
@@ -157,9 +165,9 @@ layout {
         // Gradients can use a few different interpolation color spaces.
         // For example, this is a pastel rainbow gradient via in="oklch longer hue".
         //
-        active-gradient from="#B0A9B8" to="#BD5D72" angle=45 relative-to="workspace-view"
+        active-gradient from="#B0A9B84D" to="#BD5D724D" angle=45 relative-to="workspace-view"
 
-        inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+        inactive-gradient from="#5050504D" to="#8080804D" angle=45 relative-to="workspace-view"
     }
 
     // You can enable drop shadows for windows.
@@ -210,6 +218,14 @@ layout {
         // top 64
         // bottom 64
     }
+
+	tab-indicator {
+		off
+		hide-when-single-tab
+		// place-within-column
+		position "right"
+		width 8
+	}
 }
 
 // Add lines like this to spawn processes at startup.
@@ -236,7 +252,7 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-//prefer-no-csd
+prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
@@ -267,7 +283,10 @@ window-rule {
     background-effect {
         blur true
         xray true
+		// noise 0.2
     }
+
+	draw-border-with-background false
 }
 
 layer-rule {
@@ -277,8 +296,9 @@ layer-rule {
     }
 }
 blur {
-    passes 2
-    //saturation 0.8
+    passes 4
+    offset 3
+    saturation 2
 }
 
 // Work around WezTerm's initial configure bug
@@ -298,7 +318,10 @@ window-rule {
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match app-id=r#"zen-browser$"# title="^Picture-in-Picture$"
+    // match title="^(.*)JFLAP(.*)$"
     match title="^Picture-in-Picture$"
+	match app-id=r#"kitty$"#
+	match app-id=r#"Godot Playground$"#
     open-floating true
 }
 
@@ -320,6 +343,12 @@ window-rule {
     geometry-corner-radius 10
     clip-to-geometry true
 }
+
+// window-rule {
+//    match is-floating=false
+//
+//    tiled-state true
+//}
 
 overview {
     backdrop-color "#080310";
