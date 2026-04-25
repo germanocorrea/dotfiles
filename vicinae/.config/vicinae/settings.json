@@ -10,6 +10,7 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
+   "pop_on_backspace": false,
    "font": {
       "normal": {
          "family": "Inter Variable",
@@ -22,7 +23,10 @@
       }
    },
    "launcher_window": {
-      "opacity": 0.85
+      "opacity": 0.15,
+      "client_side_decorations": {
+         "enabled": true
+      }
    },
    "providers": {
       "@knoopx/store.vicinae.github": {
@@ -49,6 +53,14 @@
             "Alacritty": {
                "enabled": true
             }
+         }
+      },
+      "clipboard": {
+         "preferences": {
+            "encryption": false,
+            "eraseOnStartup": false,
+            "ignorePasswords": true,
+            "monitoring": true
          }
       }
    }
