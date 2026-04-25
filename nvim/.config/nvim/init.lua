@@ -12,6 +12,11 @@ vim.o.cursorline = false -- Highlight the line where the cursor is on.
 vim.o.scrolloff = 5 -- Keep this many screen lines above/below the cursor.
 vim.o.list = true -- Show <tab> and trailing spaces.
 vim.o.confirm = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop=4
+vim.opt.autoindent = true
+
 -- AUTOCOMMANDS (EVENT HANDLERS)
 --
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
@@ -102,7 +107,11 @@ require('fzf-lua').setup { fzf_colors = true }
 require('mini.completion').setup {}
 require('quicker').setup {}
 require('gitsigns').setup {}
-require('nvim-treesitter').setup {}
+require('nvim-treesitter').setup {
+	indent = {
+		enable = true
+	}
+}
 require('illuminate').configure {}
 require('ibl').setup {}
 require('todo-comments').setup {}
@@ -155,13 +164,16 @@ require('transparent').setup { -- Optional, you don't have to run setup.
 -- require('colorizer').setup {}
 -- vim.cmd("set termguicolors")
 
-require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure' }
+require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure', 'gdscript' }
 
 vim.cmd("colorscheme rose-pine")
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure' },
-  callback = function() vim.treesitter.start() end,
+  pattern = { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure', 'gdscript' },
+  callback = function()
+	  vim.treesitter.start()
+	  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })
 
 vim.lsp.enable('gopls')
@@ -202,4 +214,4 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 -- Retrieved 2026-04-03, License - CC BY-SA 4.0
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 
-
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
