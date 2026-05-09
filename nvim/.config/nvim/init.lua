@@ -98,6 +98,10 @@ vim.pack.add({
   -- abre e fecha pares junto, tipo {}
   'https://github.com/windwp/nvim-autopairs',
 
+
+  -- wayfinder
+  'https://github.com/error311/wayfinder.nvim',
+
   -- colorschemes
   'https://github.com/rose-pine/neovim',
   'https://github.com/nyoom-engineering/oxocarbon.nvim',
@@ -161,6 +165,8 @@ require('transparent').setup { -- Optional, you don't have to run setup.
     exclude_groups = {}, -- table: groups you don't want to clear
 }
 
+require('wayfinder').setup {}
+
 -- require('colorizer').setup {}
 -- vim.cmd("set termguicolors")
 
@@ -213,5 +219,7 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 -- Posted by Brotify Force, modified by community. See post 'Timeline' for change history
 -- Retrieved 2026-04-03, License - CC BY-SA 4.0
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>wf", "<Plug>(WayfinderOpen)", { desc = "Wayfinder" })
 
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
