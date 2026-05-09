@@ -16,11 +16,11 @@
             "group/system"
         ],
         "custom/openbracket": {
-            "format": "[",
+            "format": "",
             "tooltip": false
         },
         "custom/closebracket": {
-            "format": "]",
+            "format": "",
             "tooltip": false
         },
         "custom/split": {
@@ -78,7 +78,7 @@
             }
         },
         "mpris": {
-            "format": "[ {status_icon} {dynamic} ]",
+            "format": "{status_icon} {dynamic}",
             //"format": "[   {status_icon} | {dynamic} ]",
             "interval": 1,
             "dynamic-len": 40,
@@ -223,7 +223,7 @@
             },
             "format": "{icon} {capacity}%",
             "format-full": "{icon} {capacity}%",
-            "format-charging": "  {capacity}%",
+            "format-charging": "  {capacity}%",
             "format-plugged": "  {capacity}%",
             "format-icons": [
                 "",

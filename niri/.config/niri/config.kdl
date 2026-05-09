@@ -165,9 +165,14 @@ layout {
         // Gradients can use a few different interpolation color spaces.
         // For example, this is a pastel rainbow gradient via in="oklch longer hue".
         //
-        active-gradient from="#B0A9B84D" to="#BD5D724D" angle=45 relative-to="workspace-view"
+        active-gradient from="#5050504D" to="#8080804D" angle=45 relative-to="workspace-view"
 
-        inactive-gradient from="#5050504D" to="#8080804D" angle=45 relative-to="workspace-view"
+        // inactive-gradient from="#5050504D" to="#8080804D" angle=45 relative-to="workspace-view"
+
+		// active-gradient from="#B0A9B84D" to="#BD5D724D" angle=45 relative-to="workspace-view"
+
+        // inactive-gradient from="#5050504D" to="#8080804D" angle=45 relative-to="workspace-view"
+
     }
 
     // You can enable drop shadows for windows.
@@ -217,6 +222,10 @@ layout {
         // right 64
         // top 64
         // bottom 64
+		left 0
+		right 0
+		top 0
+		bottom 0
     }
 
 	tab-indicator {
@@ -282,11 +291,19 @@ window-rule {
     // opacity 0.8
     background-effect {
         blur true
-        xray true
+        xray false
 		// noise 0.2
     }
 
-	draw-border-with-background false
+	// draw-border-with-background false
+	popups {
+		// geometry-corner-radius 8
+		opacity 0.8
+		background-effect {
+			blur true
+			xray false
+		}
+	}
 }
 
 layer-rule {
@@ -309,6 +326,13 @@ window-rule {
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
+}
+
+window-rule {
+	match app-id=r#"firefox$"#
+	match app-id=r#"zen-browser$"#
+	open-floating false
+	open-maximized true
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -340,7 +364,7 @@ window-rule {
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 10
+    geometry-corner-radius 8
     clip-to-geometry true
 }
 
