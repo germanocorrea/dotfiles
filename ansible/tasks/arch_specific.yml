@@ -69,10 +69,9 @@
         name:
           - niri-wip-git
           - vicinae-bin
-          - xdg-desktop-portal-termfilechooser-hunkyburrito-git
     - name: Aplicar (stow) dotfiles do Niri
       command:
-        cmd: "stow --adopt niri waybar xdg-desktop-portal xdg-desktop-portal-termfilechooser vicinae"
+        cmd: "stow --adopt niri waybar vicinae"
         chdir: "{{ dotfiles_dir }}"
       tags: dotfiles
 
