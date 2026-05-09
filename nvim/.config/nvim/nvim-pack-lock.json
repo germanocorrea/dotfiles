@@ -84,6 +84,10 @@
       "rev": "0d1e93684da00ab7c057410fecfc24f434698898",
       "src": "https://github.com/RRethy/vim-illuminate"
     },
+    "wayfinder.nvim": {
+      "rev": "ce86eb43bc486d45ddfd3b0c7e453acb2abf6e8c",
+      "src": "https://github.com/error311/wayfinder.nvim"
+    },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim"
