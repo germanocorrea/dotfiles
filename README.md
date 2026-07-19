@@ -15,6 +15,6 @@ updateansible
 ## How run.sh works
 - Checks if Ansible and it's prerequisites are installed for applying the playbook.
   - For Arch/CachyOS, it installs through the distro's own repositories, and installs kewlfft.aur
-  - For Ubuntu, it adds the necessary PPA for ansible
+
 - Check if there is a dotfiles directory already. If there is, it commits everything that is uncommited and pushes everything unpushed.
 - Executes the playbook fetching it from github

@@ -14,12 +14,6 @@ if ! command -v ansible &>/dev/null; then
   if [[ "$ID" == "arch" || "$ID" == "cachyos" || "$ID_LIKE" == *"arch"* ]]; then
     log "Arch/CachyOS detected. Installing Ansible via pacman..."
     sudo pacman -S --noconfirm ansible
-  elif [[ "$ID" == "ubuntu" || "$ID_LIKE" == *"ubuntu"* ]]; then
-    log "Ubuntu detected. Installing Ansible via PPA..."
-    sudo apt-get update
-    sudo apt-get install -y software-properties-common
-    sudo add-apt-repository --yes --update ppa:ansible/ansible
-    sudo apt-get install -y ansible
   else
     echo "Error: Unsupported distribution for automatic installation."
     exit 1
@@ -69,8 +63,6 @@ source /etc/os-release
 
 if [[ "$ID" == "arch" || "$ID" == "cachyos" || "$ID_LIKE" == *"arch"* ]]; then
   PLAYBOOK_PATH="ansible/playbook_arch.yml"
-elif [[ "$ID" == "ubuntu" || "$ID_LIKE" == *"ubuntu"* ]]; then
-  PLAYBOOK_PATH="ansible/playbook_ubuntu.yml"
 else
   echo "Error: Unsupported distribution for playbook execution."
   exit 1

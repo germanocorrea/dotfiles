@@ -1,0 +1,33 @@
+---
+- name: Instalar Emacs
+  become: yes
+  package:
+    name: emacs
+    state: present
+  tags: packages
+
+- name: Instalar Doom Emacs
+  tags:
+    - doom
+    - development-base
+  block:
+    - name: Baixar e instalar Doom
+      ansible.builtin.shell: |
+        if [ -f "$HOME/.emacs.d/bin/doom" ] || [ -f "$HOME/.config/emacs/bin/doom" ]; then
+          echo "Doom Emacs já está instalado."
+        else
+          git clone --depth 1 https://github.com/doomemacs/core ~/.config/emacs ~/.config/emacs/bin/doom install
+        fi
+      register: doom_install_result
+      changed_when: "'já está instalado' not in doom_install_result.stdout"
+
+- name: Aplicar (stow) dotfiles do Doom
+  command:
+    cmd: "stow --adopt doom"
+    chdir: "{{ dotfiles_dir }}"
+  tags: dotfiles
+
+- name: Sync Doom
+  command:
+    cmd: "doom sync"
+  tags: dotfiles

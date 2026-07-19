@@ -6,10 +6,6 @@
     state: present
   vars:
     python_packages:
-      Ubuntu:
-        - "python3"
-        - "python3-pip"
-        - "python3-venv"
       Archlinux:
         - "python"
         - "python-pip"
