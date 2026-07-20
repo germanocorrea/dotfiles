@@ -4,7 +4,7 @@
 #  _ / /\__ \ | | | | | (__
 # (_)___|___/_| |_|_|  \___|
 #
-
+# zmodload zsh/zprof # init zsh startup performance monitoring
 export EDITOR=emacs
 export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
@@ -15,11 +15,14 @@ export GO_PATH=$HOME/go/bin
 export PATH=$PATH:~/.cargo/bin/:~/.local/bin:~/go/bin:~/.emacs.d/bin
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
+DISABLE_AUTO_UPDATE="true"
 ZSH_THEME=lambda
 
 # -----------------------------------------------------
 # oh-myzsh plugins
 # -----------------------------------------------------
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:zsh-autosuggestions' lazy yes
 plugins=(
     git
     sudo
@@ -35,13 +38,12 @@ plugins=(
     mysql-macports
     systemd
     git-extras
-    taskwarrior
     docker
     urltools
     torrent
-    vi-mode
     zsh-syntax-highlighting
     alias-finder
+    nvm
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -98,12 +100,19 @@ ffgif() {
         ffmpeg -i $1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" $1.mp4
 }
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
+# manual lazy loading of nvm
+# nvm() {
+#     unfunction nvm
+#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#     nvm "$@"
+# }
+
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 if [ -f ~/.zshrc_custom ]; then
     source ~/.zshrc_custom
 fi
+# zprof # compile performance of zsh startup
