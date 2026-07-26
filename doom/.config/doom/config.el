@@ -68,8 +68,8 @@
 
 ;; LAYOUT & STYLE
 (setq display-line-numbers-type t)
-;; (add-to-list 'default-frame-alist '(alpha-background . 60))
-(setq doom-theme 'doom-sourcerer)
+(add-to-list 'default-frame-alist '(alpha-background . 80))
+(setq doom-theme 'doom-jetbrains-islands-dark)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14))
 (setq doom-variable-pitch-font (font-spec :family "Faculty Glyphic" :size 16))
 (add-hook 'org-mode-hook #'variable-pitch-mode)
