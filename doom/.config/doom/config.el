@@ -1,14 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Germano Bruscato Corrêa"
-      user-mail-address "germanobruscato@gmail.com")
-
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -31,28 +22,7 @@
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-rose-pine)
-;; (setq doom-theme 'doom-laserwave)
-;; (setq doom-theme 'doom-horizon)
-;;(setq doom-theme 'doom-manegarm)
-;;(setq doom-theme 'doom-opera)
-;; (setq doom-theme 'doom-sourcerer)
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-(add-to-list 'default-frame-alist '(alpha-background . 60))
-
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14))
-(setq doom-variable-pitch-font (font-spec :family "Faculty Glyphic" :size 16))
-
+;; `load-theme' function.
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
@@ -85,6 +55,60 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-laserwave)
+;; (setq doom-theme 'doom-horizon)
+;;(setq doom-theme 'doom-manegarm)
+;;(setq doom-theme 'doom-opera)
+;; (setq doom-theme 'doom-sourcerer)
+;; (setq doom-theme 'doom-rose-pine)
+
+(setq user-full-name "Germano Bruscato Corrêa"
+      user-mail-address "germanobruscato@gmail.com")
+
+;; LAYOUT & STYLE
+(setq display-line-numbers-type t)
+;; (add-to-list 'default-frame-alist '(alpha-background . 60))
+(setq doom-theme 'doom-sourcerer)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14))
+(setq doom-variable-pitch-font (font-spec :family "Faculty Glyphic" :size 16))
+(add-hook 'org-mode-hook #'variable-pitch-mode)
+(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
+(use-package mixed-pitch
+  :hook
+  ;; If you want it in all text modes:
+  (text-mode . mixed-pitch-mode))
+
+;; CUSTOM THEMES
+;; (add-to-list 'custom-theme-load-path (expand-file-name "themes/" doom-user-dir))
+
+
+;; ORGMODE
+(setq org-directory "~/org/")
+(setq org-roam-directory "~/org/roam")
+(org-roam-db-autosync-mode)
+(add-to-list 'display-buffer-alist
+             '("\\*org-roam\\*"
+               (display-buffer-in-direction)
+               (direction . right)
+               (window-width . 0.33)
+               (window-height . fit-window-to-buffer)))
+(require 'org-roam-protocol)
+(use-package! websocket
+  :after org-roam)
+
+(use-package! org-roam-ui
+  :after org-roam ;; or :after org
+  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+  ;;         a hookable mode anymore, you're advised to pick something yourself
+  ;;         if you don't care about startup time, use
+  ;;  :hook (after-init . org-roam-ui-mode)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
+
 (setq org-log-done 'note)
 (setq org-icalendar-include-todo 'y)
 (setq org-agenda-files (directory-files-recursively org-directory "org$"))
@@ -93,8 +117,6 @@
 (setq org-icalendar-use-scheduled '(event-if-todo-not-done))
 ;;(setq org-icalendar-after-save-hook )
 (setq org-agenda-span 30)
-
-
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
@@ -103,14 +125,20 @@
 ;;(setq org-latex-image-default-scale 0.5)
 (setq org-format-latex-options '(:foreground default :background "Transparent" :scale 1))
 (setq org-export-with-broken-links 'y)
-
 (setq org-pad-client 'web)
+(after! org-roam
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (when (org-roam-file-p)
+                (unless (get-buffer-window org-roam-buffer)
+                  (org-roam-buffer-toggle))))))
+
 
 ;; SPELLCHECK
-(setq ispell-program-name "hunspell")
-(setq ispell-dictionary "pt_BR,en_US")
-(with-eval-after-load "ispell"
-  (setq ispell-hunspell-dict-map-alist nil)
-  (setq ispell-local-dictionary "pt_BR,en_US")
-  (add-to-list 'ispell-local-dictionary-alist
-               '("pt_BR,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "pt_BR,en_US") nil utf-8)))
+;; (setq ispell-program-name "hunspell")
+;; (setq ispell-dictionary "pt_BR,en_US")
+;; (with-eval-after-load "ispell"
+;;   (setq ispell-hunspell-dict-map-alist nil)
+;;   (setq ispell-local-dictionary "pt_BR,en_US")
+;;   (add-to-list 'ispell-local-dictionary-alist
+;;                '("pt_BR,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "pt_BR,en_US") nil utf-8)))

@@ -58,3 +58,10 @@
    :repo "larrasket/org-pad.el"
    :branch "master"
    :files ("*.el" "web" )))
+
+(package! org-download)
+
+(unpin! org-roam)
+(package! org-roam-ui)
+
+(package! mixed-pitch)
