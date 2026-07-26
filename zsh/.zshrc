@@ -116,3 +116,6 @@ if [ -f ~/.zshrc_custom ]; then
     source ~/.zshrc_custom
 fi
 # zprof # compile performance of zsh startup
+
+# opencode
+export PATH=/home/gege/.opencode/bin:$PATH
