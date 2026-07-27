@@ -79,6 +79,14 @@
   ;; If you want it in all text modes:
   (text-mode . mixed-pitch-mode))
 
+;; TABS - workspace & buffer bar
+(after! tab-bar
+  (setq tab-bar-show t
+        tab-bar-new-tab-to-last t
+        tab-bar-tab-hints nil
+        tab-bar-close-button-show nil
+        tab-bar-new-tab nil))
+
 ;; CUSTOM THEMES
 ;; (add-to-list 'custom-theme-load-path (expand-file-name "themes/" doom-user-dir))
 
