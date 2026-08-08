@@ -5,7 +5,7 @@
 # (_)___|___/_| |_|_|  \___|
 #
 # zmodload zsh/zprof # init zsh startup performance monitoring
-export EDITOR=emacs
+export EDITOR=emacsclient
 export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 export GTK_USE_PORTAL=1
