@@ -78,6 +78,10 @@
   :hook
   ;; If you want it in all text modes:
   (text-mode . mixed-pitch-mode))
+(custom-set-faces! ;; Line spacing in org titles
+  '(org-level-1 :height 1.35 :line-spacing 0.2)
+  '(org-level-2 :height 1.2  :line-spacing 0.15)
+  '(org-level-3 :height 1.1  :line-spacing 0.1))
 
 ;; TABS - workspace & buffer bar
 (after! tab-bar
@@ -86,9 +90,6 @@
         tab-bar-tab-hints nil
         tab-bar-close-button-show nil
         tab-bar-new-tab nil))
-
-;; CUSTOM THEMES
-;; (add-to-list 'custom-theme-load-path (expand-file-name "themes/" doom-user-dir))
 
 
 ;; ORGMODE
@@ -150,3 +151,15 @@
 ;;   (setq ispell-local-dictionary "pt_BR,en_US")
 ;;   (add-to-list 'ispell-local-dictionary-alist
 ;;                '("pt_BR,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "pt_BR,en_US") nil utf-8)))
+
+;; NVM
+;; (let ((nvm-bin (car (last (sort (file-expand-wildcards "~/.nvm/versions/node/*/bin") #'string<)))))
+;;   (when nvm-bin
+;;     (add-to-list 'exec-path nvm-bin)))
+(let ((path-from-nvm
+       (string-trim
+        (shell-command-to-string
+         "zsh -c 'export NVM_DIR=$HOME/.nvm; source $NVM_DIR/nvm.sh; nvm use default >/dev/null 2>&1; echo $PATH'"))))
+  (when (and path-from-nvm (not (string-empty-p path-from-nvm)))
+    (setenv "PATH" path-from-nvm)
+    (setq exec-path (append (split-string path-from-nvm ":") exec-path))))
