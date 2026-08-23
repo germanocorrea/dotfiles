@@ -9,6 +9,13 @@
       Archlinux:
         - "python"
         - "python-pip"
+        - "python-pipx"
       CachyOS:
         - "python"
         - "python-pip"
+        - "python-pipx"
+
+- name: Instalar gdtoolkit via pipx
+  command:
+    cmd: 'pipx install "gdtoolkit==4.*"'
+    creates: "~/.local/bin/gdformat"

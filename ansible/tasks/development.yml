@@ -30,6 +30,12 @@
         cmd: "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
         creates: "~/.nvm/nvm.sh"
 
+    - name: Instalar TypeScript e typescript-language-server (npm)
+      ansible.builtin.shell:
+        cmd: "source ~/.nvm/nvm.sh && npm install -g typescript typescript-language-server"
+        executable: /bin/bash
+      tags: npm
+
 - name: Instalar e configurar PHP
   tags:
     - development-base
@@ -41,3 +47,45 @@
         name: php
         state: present
       tags: packages
+
+    - name: Instalar composer
+      become: yes
+      package:
+        name: composer
+        state: present
+      tags: packages
+
+- name: Instalar Pacotes de Desenvolvimento via Pacman
+  become: yes
+  package:
+    name:
+      - hoogle
+      - shfmt
+      - shellcheck
+    state: present
+  tags:
+    - packages
+    - development-base
+
+- name: Instalar nixfmt (nix profile)
+  ansible.builtin.shell:
+    cmd: "nix profile install nixpkgs#nixfmt-rfc-style"
+  tags:
+    - development-base
+    - nix
+
+- name: Instalar dockfmt (go install)
+  ansible.builtin.shell:
+    cmd: "go install github.com/jessfraz/dockfmt@latest"
+    creates: "~/go/bin/dockfmt"
+  tags:
+    - development-base
+    - go
+
+- name: Instalar gomodifytags (go install)
+  ansible.builtin.shell:
+    cmd: "go install github.com/fatih/gomodifytags@latest"
+    creates: "~/go/bin/gomodifytags"
+  tags:
+    - development-base
+    - go
