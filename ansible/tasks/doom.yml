@@ -29,5 +29,5 @@
 
 - name: Sync Doom
   command:
-    cmd: "doom sync"
+    cmd: "{{ ansible_facts.env.HOME }}/.config/emacs/bin/doom sync"
   tags: dotfiles

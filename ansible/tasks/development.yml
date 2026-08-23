@@ -60,21 +60,43 @@
         cmd: "$HOME/.cargo/bin/cargo install phpantom_lsp"
         creates: "~/.cargo/bin/phpantom_lsp"
 
-- name: Instalar Pacotes de Desenvolvimento via Pacman
+- name: Instalar Pacotes de Desenvolvimento
   become: yes
   package:
-    name:
-      - hoogle
-      - shfmt
-      - shellcheck
+    name: "{{ dev_packages[ansible_facts['distribution']] }}"
     state: present
+  vars:
+    dev_packages:
+      Archlinux:
+        - hoogle
+        - shfmt
+        - shellcheck
+      CachyOS:
+        - hoogle
+        - shfmt
+        - shellcheck
+      Ubuntu:
+        - hoogle
+        - shfmt
+        - shellcheck
   tags:
     - packages
     - development-base
 
+- name: Verificar se o Nix está disponível
+  ansible.builtin.shell:
+    cmd: "command -v nix"
+  register: nix_check
+  changed_when: false
+  failed_when: false
+  tags:
+    - development-base
+    - nix
+
 - name: Instalar nixfmt (nix profile)
   ansible.builtin.shell:
     cmd: "nix profile install nixpkgs#nixfmt-rfc-style"
+  when: nix_check.rc == 0
   tags:
     - development-base
     - nix

@@ -22,3 +22,6 @@
 
     - name: Importar Tarefas Comuns
       import_tasks: tasks/common_tasks.yml
+
+    - name: Importar Tarefas de Apps Pessoais (Arch apenas)
+      import_tasks: tasks/personal_apps.yml

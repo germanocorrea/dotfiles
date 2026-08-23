@@ -19,6 +19,15 @@ DISABLE_AUTO_UPDATE="true"
 ZSH_THEME=lambda
 
 # -----------------------------------------------------
+# Detect current distro (arch | cachyos | ubuntu | ...)
+# Used to load distro-specific plugins and configs below.
+# -----------------------------------------------------
+if [[ -r /etc/os-release ]]; then
+    . /etc/os-release
+fi
+DISTRO="${ID:-unknown}"
+
+# -----------------------------------------------------
 # oh-myzsh plugins
 # -----------------------------------------------------
 zstyle ':omz:plugins:nvm' lazy yes
@@ -27,7 +36,6 @@ plugins=(
     git
     sudo
     web-search
-    archlinux
     zsh-autosuggestions
     copyfile
     copybuffer
@@ -46,13 +54,19 @@ plugins=(
     nvm
 )
 
+# Distro-specific plugins (must be added before oh-my-zsh is sourced)
+case "$DISTRO" in
+    arch|cachyos) plugins+=(archlinux) ;;
+esac
+
 source $ZSH/oh-my-zsh.sh
 #source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
 
 # -----------------------------------------------------
-# Set-up FZF key bindings (CTRL R for fuzzy history finder)
+# Distro-specific configuration (fzf, aliases, etc.)
+# See .zshrc_arch / .zshrc_ubuntu in the dotfiles repo.
 # -----------------------------------------------------
-source $HOME/.zsh_fzf
+[[ -r "$HOME/.zshrc_${DISTRO}" ]] && source "$HOME/.zshrc_${DISTRO}"
 
 # zsh history
 HISTFILE=~/.zsh_history
@@ -75,7 +89,6 @@ alias wifi='nmtui'
 alias updateansible='sh -c "$(curl -fsSL https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/run.sh)"'
 alias copy='wl-copy'
 alias sudo='sudo '
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias ssh-sparta='sshpass -f /home/gegebc/.sparta-pswd ssh portoalegre\\germano.bruscato@sparta.pucrs.br'
 alias emacs='emacsclient --alternate-editor= --create-frame'
 alias em='emacsclient -nw'

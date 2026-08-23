@@ -17,8 +17,5 @@
 - name: Importar Tarefas de Python
   import_tasks: python.yml
 
-- name: Importar Tarefas de Apps Pessoais
-  import_tasks: personal_apps.yml
-
 - name: Importar Tarefas de Dotfiles
   import_tasks: dotfiles.yml

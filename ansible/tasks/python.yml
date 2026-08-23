@@ -14,6 +14,11 @@
         - "python"
         - "python-pip"
         - "python-pipx"
+      Ubuntu:
+        - "python3"
+        - "python3-pip"
+        - "python3-venv"
+        - "pipx"
 
 - name: Instalar gdtoolkit via pipx
   command:

@@ -7,6 +7,16 @@
     state: present
   tags: packages
 
+# O neovim do apt (Ubuntu 24.04: 0.9.x) é antigo demais para a config atual,
+# que usa APIs recentes (vim.pack.add, vim.hl.on_yank, ...). Instalamos via snap.
+- name: Instalar Neovim via Snap (Ubuntu)
+  when: ansible_facts['distribution'] == "Ubuntu"
+  become: yes
+  ansible.builtin.command:
+    cmd: "snap install nvim --classic"
+    creates: "/snap/bin/nvim"
+  tags: packages
+
 - name: Aplicar (stow) dotfiles do Neovim
   command:
     cmd: "stow --adopt nvim"
