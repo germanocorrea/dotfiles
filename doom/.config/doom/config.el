@@ -163,3 +163,11 @@
   (when (and path-from-nvm (not (string-empty-p path-from-nvm)))
     (setenv "PATH" path-from-nvm)
     (setq exec-path (append (split-string path-from-nvm ":") exec-path))))
+
+;; LSP - PHPantom (PHP language server)
+(after! lsp-mode
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("phpantom_lsp"))
+    :activation-fn (lsp-activate-on "php")
+    :server-id 'phpantom-ls)))

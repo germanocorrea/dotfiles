@@ -55,6 +55,11 @@
         state: present
       tags: packages
 
+    - name: Instalar phpantom_lsp (LSP de PHP via cargo)
+      ansible.builtin.shell:
+        cmd: "$HOME/.cargo/bin/cargo install phpantom_lsp"
+        creates: "~/.cargo/bin/phpantom_lsp"
+
 - name: Instalar Pacotes de Desenvolvimento via Pacman
   become: yes
   package:
