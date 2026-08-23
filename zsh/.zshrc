@@ -76,12 +76,14 @@ alias updateansible='sh -c "$(curl -fsSL https://raw.githubusercontent.com/germa
 alias copy='wl-copy'
 alias sudo='sudo '
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-alias ssh-sparta='sshpass -f/home/gegebc/.sparta-pswd ssh portoalegre\\germano.bruscato@sparta.pucrs.br'
+alias ssh-sparta='sshpass -f /home/gegebc/.sparta-pswd ssh portoalegre\\germano.bruscato@sparta.pucrs.br'
 alias emacs='emacsclient --alternate-editor= --create-frame'
 alias em='emacsclient -nw'
 alias nano='vim -c smile'
 alias vim='vim -c smile'
 alias nvim='nvim -c smile'
+alias icat="kitty +kitten icat"
+alias which="which -a"
 
 md-to-org() {
     pandoc --from=markdown --to=org $1.md -o $1.org
@@ -97,9 +99,8 @@ lsperm() {
 }
 
 ffgif() {
-        ffmpeg -i $1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" $1.mp4
+    ffmpeg -i $1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" $1.mp4
 }
-
 
 # manual lazy loading of nvm
 # nvm() {
