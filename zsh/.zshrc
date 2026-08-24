@@ -13,7 +13,6 @@ export GDK_DEBUG=portals
 export QT_QPA_PLATFORMTHEME=xdgdesktopportal
 export GO_PATH=$HOME/go/bin
 export PATH=$PATH:~/.cargo/bin/:~/.local/bin:~/go/bin:~/.emacs.d/bin:~/.config/emacs/bin
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 DISABLE_AUTO_UPDATE="true"
 ZSH_THEME=lambda
