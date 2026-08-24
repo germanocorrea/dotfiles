@@ -1,0 +1,12 @@
+# -----------------------------------------------------
+# Arch/CachyOS-specific zsh configuration
+# Loaded from .zshrc when $DISTRO is arch or cachyos.
+# -----------------------------------------------------
+
+# Set-up FZF key bindings (CTRL R for fuzzy history finder)
+source $HOME/.zsh_fzf
+
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# Docker user socket (Arch rootless setup)
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock

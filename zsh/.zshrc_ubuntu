@@ -1,0 +1,28 @@
+# -----------------------------------------------------
+# Ubuntu-specific zsh configuration
+# Loaded from .zshrc when $DISTRO is ubuntu.
+# -----------------------------------------------------
+
+# fzf key bindings are handled by oh-my-zsh's `fzf` plugin
+# (added in .zshrc when $DISTRO == ubuntu). It works with the
+# older fzf shipped by Ubuntu, unlike the vendored ~/.zsh_fzf.
+
+# Work machine: use nvim as editor instead of emacsclient
+export EDITOR=nvim
+
+# Homebrew on Linux
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+
+# Extra PATH entries (JetBrains Toolbox launcher scripts, personal bin)
+export PATH=$PATH:~/.local/share/JetBrains/Toolbox/scripts:~/bin
+
+# -----------------------------------------------------
+# Debian/Ubuntu binary names differ from Arch for some tools
+# -----------------------------------------------------
+alias bat='batcat'
+alias fd='fdfind'
+
+# -----------------------------------------------------
+# Ubuntu aliases
+# -----------------------------------------------------
+alias update='sudo apt update && sudo apt upgrade'
