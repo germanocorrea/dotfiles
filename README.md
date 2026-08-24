@@ -22,7 +22,7 @@ Distro-specific zsh configuration lives in `~/.zshrc_arch` / `~/.zshrc_ubuntu`, 
 
 First run:
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/run.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/germanocorrea/dotfiles/refs/heads/main/run.sh)"
 ```
 
 After first run, an alias is configured for updating everything:
