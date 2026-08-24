@@ -1,9 +1,26 @@
 ---
-- name: Instalar Emacs
+- name: Instalar Emacs (Arch/CachyOS)
+  when: ansible_facts['distribution'] in ["Archlinux", "CachyOS"]
   become: yes
   package:
     name: emacs
     state: present
+  tags: packages
+
+- name: Garantir snapd presente (Ubuntu)
+  when: ansible_facts['distribution'] == "Ubuntu"
+  become: yes
+  package:
+    name: snapd
+    state: present
+  tags: packages
+
+- name: Instalar Emacs via Snap (Ubuntu)
+  when: ansible_facts['distribution'] == "Ubuntu"
+  become: yes
+  ansible.builtin.command:
+    cmd: "snap install emacs --classic"
+    creates: "/snap/bin/emacs"
   tags: packages
 
 - name: Instalar Doom Emacs

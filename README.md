@@ -13,6 +13,7 @@ Distro-specific zsh configuration lives in `~/.zshrc_arch` / `~/.zshrc_ubuntu`, 
 
 ### Ubuntu notes
 - Neovim is installed via Homebrew (linuxbrew) because the apt version is too old for the current config; linuxbrew must be present before running the playbook.
+- Emacs is installed via snap (`--classic`) instead of apt.
 - Requires the apt `universe` component (enabled by default on standard installs).
 - fzf key-bindings come from oh-my-zsh's `fzf` plugin (Ubuntu ships an older fzf than Arch, so the vendored `~/.zsh_fzf` is Arch-only).
 - Homebrew (linuxbrew) environment is loaded automatically when present; JetBrains Toolbox scripts and `~/bin` are added to PATH.
