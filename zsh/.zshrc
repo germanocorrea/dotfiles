@@ -69,7 +69,12 @@ source $ZSH/oh-my-zsh.sh
 # Distro-specific configuration (fzf, aliases, etc.)
 # See .zshrc_arch / .zshrc_ubuntu in the dotfiles repo.
 # -----------------------------------------------------
-[[ -r "$HOME/.zshrc_${DISTRO}" ]] && source "$HOME/.zshrc_${DISTRO}"
+if [[ -r "$HOME/.zshrc_${DISTRO}" ]]; then
+    source "$HOME/.zshrc_${DISTRO}"
+elif [[ -r "$HOME/dotfiles/zsh/.zshrc_${DISTRO}" ]]; then
+    # Fallback: distro file exists in the repo but isn't stowed yet
+    source "$HOME/dotfiles/zsh/.zshrc_${DISTRO}"
+fi
 
 # zsh history
 HISTFILE=~/.zsh_history
