@@ -12,8 +12,10 @@ My personal dotfiles for the machines and distros I use. Public because at the f
 Distro-specific zsh configuration lives in `~/.zshrc_arch` / `~/.zshrc_ubuntu`, sourced from `.zshrc` based on `/etc/os-release`. For example, fzf key-bindings differ per distro because Ubuntu ships an older fzf than Arch.
 
 ### Ubuntu notes
-- Neovim is installed via snap (`--classic`) because the apt version is too old for the current config.
+- Neovim is installed via Homebrew (linuxbrew) because the apt version is too old for the current config; linuxbrew must be present before running the playbook.
 - Requires the apt `universe` component (enabled by default on standard installs).
+- fzf key-bindings come from oh-my-zsh's `fzf` plugin (Ubuntu ships an older fzf than Arch, so the vendored `~/.zsh_fzf` is Arch-only).
+- Homebrew (linuxbrew) environment is loaded automatically when present; JetBrains Toolbox scripts and `~/bin` are added to PATH.
 - Some tools have different binary names on Debian/Ubuntu; aliases are set in `~/.zshrc_ubuntu` (`bat` -> `batcat`, `fd` -> `fdfind`).
 - `eza` comes from its official apt repository (not packaged in 24.04).
 - fastfetch and phpactor are not installed on Ubuntu (fastfetch missing from repos; PHP LSP handled by cargo-installed `phpantom_lsp`).

@@ -8,13 +8,32 @@
   tags: packages
 
 # O neovim do apt (Ubuntu 24.04: 0.9.x) é antigo demais para a config atual,
-# que usa APIs recentes (vim.pack.add, vim.hl.on_yank, ...). Instalamos via snap.
-- name: Instalar Neovim via Snap (Ubuntu)
+# que usa APIs recentes (vim.pack.add, vim.hl.on_yank, ...). Instalamos via
+# Homebrew (linuxbrew), que acompanha as versões recentes do Neovim.
+- name: Verificar se o Homebrew está disponível (Ubuntu)
   when: ansible_facts['distribution'] == "Ubuntu"
-  become: yes
+  ansible.builtin.stat:
+    path: /home/linuxbrew/.linuxbrew/bin/brew
+  register: brew_bin
+  tags: packages
+
+- name: Instalar Neovim via Homebrew (Ubuntu)
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+    - brew_bin.stat.exists
   ansible.builtin.command:
-    cmd: "snap install nvim --classic"
-    creates: "/snap/bin/nvim"
+    cmd: "/home/linuxbrew/.linuxbrew/bin/brew install neovim"
+    creates: "/home/linuxbrew/.linuxbrew/bin/nvim"
+  tags: packages
+
+- name: Avisar se o Homebrew não estiver instalado (Ubuntu)
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+    - not brew_bin.stat.exists
+  ansible.builtin.debug:
+    msg: >-
+      Homebrew não encontrado em /home/linuxbrew. Instale-o primeiro
+      (https://brew.sh) e rode o playbook novamente para instalar o Neovim.
   tags: packages
 
 - name: Aplicar (stow) dotfiles do Neovim

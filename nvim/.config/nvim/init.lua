@@ -185,7 +185,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.lsp.enable('gopls')
 vim.lsp.enable('bash-language-server')
 vim.lsp.enable('rust-analyzer')
-vim.lsp.enable('phpactor')
+vim.lsp.enable('phpantom')
 vim.lsp.enable('typescript-language-server')
 vim.lsp.enable('clangd')
 vim.lsp.enable('hls')

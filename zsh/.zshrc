@@ -12,7 +12,7 @@ export GTK_USE_PORTAL=1
 export GDK_DEBUG=portals
 export QT_QPA_PLATFORMTHEME=xdgdesktopportal
 export GO_PATH=$HOME/go/bin
-export PATH=$PATH:~/.cargo/bin/:~/.local/bin:~/go/bin:~/.emacs.d/bin
+export PATH=$PATH:~/.cargo/bin/:~/.local/bin:~/go/bin:~/.emacs.d/bin:~/.config/emacs/bin
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 DISABLE_AUTO_UPDATE="true"
@@ -32,6 +32,7 @@ DISTRO="${ID:-unknown}"
 # -----------------------------------------------------
 zstyle ':omz:plugins:nvm' lazy yes
 zstyle ':omz:plugins:zsh-autosuggestions' lazy yes
+zstyle ':omz:plugins:zsh-syntax-highlighting' lazy yes
 plugins=(
     git
     sudo
@@ -57,6 +58,8 @@ plugins=(
 # Distro-specific plugins (must be added before oh-my-zsh is sourced)
 case "$DISTRO" in
     arch|cachyos) plugins+=(archlinux) ;;
+    # omz's fzf plugin works with Ubuntu's older fzf (no vendored bindings needed)
+    ubuntu) plugins+=(fzf common-aliases) ;;
 esac
 
 source $ZSH/oh-my-zsh.sh
@@ -132,4 +135,4 @@ fi
 # zprof # compile performance of zsh startup
 
 # opencode
-export PATH=/home/gege/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
