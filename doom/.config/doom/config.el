@@ -68,7 +68,7 @@
 
 ;; LAYOUT & STYLE
 (setq display-line-numbers-type t)
-(add-to-list 'default-frame-alist '(alpha-background . 80))
+(add-to-list 'default-frame-alist '(alpha-background . 85))
 (setq doom-theme 'doom-jetbrains-islands-dark)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14))
 (setq doom-variable-pitch-font (font-spec :family "Faculty Glyphic" :size 16))
@@ -171,3 +171,6 @@
     :new-connection (lsp-stdio-connection '("phpantom_lsp"))
     :activation-fn (lsp-activate-on "php")
     :server-id 'phpantom-ls)))
+
+(autoload 'jflex-mode "jflex-mode" nil t)
+(setq auto-mode-alist (cons '("\\(\\.flex\\|\\.jflex\\)\\'" . jflex-mode) auto-mode-alist))

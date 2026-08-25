@@ -65,3 +65,6 @@
 (package! org-roam-ui)
 
 (package! mixed-pitch)
+
+(package! jflex-mode
+  :recipe (:local-repo "packages/jflex-mode"))
