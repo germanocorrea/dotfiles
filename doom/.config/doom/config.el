@@ -68,20 +68,13 @@
 
 ;; LAYOUT & STYLE
 (setq display-line-numbers-type t)
-(add-to-list 'default-frame-alist '(alpha-background . 80))
+;; (add-to-list 'default-frame-alist '(alpha-background . 80))
 (setq doom-theme 'doom-jetbrains-islands-dark)
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14))
-(setq doom-variable-pitch-font (font-spec :family "Faculty Glyphic" :size 16))
-(add-hook 'org-mode-hook #'variable-pitch-mode)
-(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode -1)))
 (use-package mixed-pitch
   :hook
   ;; If you want it in all text modes:
   (text-mode . mixed-pitch-mode))
-(custom-set-faces! ;; Line spacing in org titles
-  '(org-level-1 :height 1.35 :line-spacing 0.2)
-  '(org-level-2 :height 1.2  :line-spacing 0.15)
-  '(org-level-3 :height 1.1  :line-spacing 0.1))
 
 ;; TABS - workspace & buffer bar
 (after! tab-bar
@@ -90,58 +83,6 @@
         tab-bar-tab-hints nil
         tab-bar-close-button-show nil
         tab-bar-new-tab nil))
-
-
-;; ORGMODE
-(setq org-directory "~/org/")
-(setq org-roam-directory "~/org/roam")
-(org-roam-db-autosync-mode)
-(add-to-list 'display-buffer-alist
-             '("\\*org-roam\\*"
-               (display-buffer-in-direction)
-               (direction . right)
-               (window-width . 0.33)
-               (window-height . fit-window-to-buffer)))
-(require 'org-roam-protocol)
-(use-package! websocket
-  :after org-roam)
-
-(use-package! org-roam-ui
-  :after org-roam ;; or :after org
-  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-  ;;         a hookable mode anymore, you're advised to pick something yourself
-  ;;         if you don't care about startup time, use
-  ;;  :hook (after-init . org-roam-ui-mode)
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
-
-(setq org-log-done 'note)
-(setq org-icalendar-include-todo 'y)
-(setq org-agenda-files (directory-files-recursively org-directory "org$"))
-(setq org-icalendar-combined-agenda-file (concat org-directory "public/orgmode.ics"))
-(setq org-icalendar-use-deadline '(event-if-todo-not-done))
-(setq org-icalendar-use-scheduled '(event-if-todo-not-done))
-;;(setq org-icalendar-after-save-hook )
-(setq org-agenda-span 30)
-(defun org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (let (org-log-done org-log-states)   ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-;;(setq org-latex-image-default-scale 0.5)
-(setq org-format-latex-options '(:foreground default :background "Transparent" :scale 1))
-(setq org-export-with-broken-links 'y)
-(setq org-pad-client 'web)
-(after! org-roam
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (when (org-roam-file-p)
-                (unless (get-buffer-window org-roam-buffer)
-                  (org-roam-buffer-toggle))))))
-
 
 ;; SPELLCHECK
 ;; (setq ispell-program-name "hunspell")
