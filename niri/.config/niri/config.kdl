@@ -67,9 +67,9 @@ layout {
 		off
 	}
     border {
-        off
-        width 2
-        active-gradient from="#ffffff44" to="#ffffff08" angle=45 relative-to="window" in="srgb-linear"
+        on
+        width 1
+        active-gradient from="#ffffff23" to="#ffffff11" angle=145 relative-to="window" in="srgb-linear"
         inactive-color "#ffffff11"
         urgent-color "#9b0000"
     }
