@@ -1,4 +1,4 @@
-; -*- Mode: Emacs-Lisp; -*-
+                                        ; -*- Mode: Emacs-Lisp; -*-
 
 ;;;  jflex-mode
 
@@ -7,6 +7,8 @@
 
 (require 'derived)
 (require 'font-lock)
+(require 'cc-mode)
+(require 'cc-fonts)
 
 (define-derived-mode jflex-mode java-mode "JFlex"
   "Major mode for editing JFlex files"
@@ -19,7 +21,7 @@
 
   ;; remove auto and hungry anything
   (c-toggle-auto-hungry-state -1)
-  (c-toggle-auto-state -1)
+  (c-toggle-auto-newline -1)
   (c-toggle-hungry-state -1)
 
   (use-local-map jflex-mode-map)
@@ -30,14 +32,16 @@
 
   (define-key jflex-mode-map [tab] 'jflex-indent-command)
 
-  )
+  (set (make-local-variable 'font-lock-defaults)
+       '(jflex-font-lock-keywords
+         nil nil ((?_ . "w")) beginning-of-defun)))
 
 (defalias 'jflex-indent-command 'c-indent-command)
 
 (defconst jflex-font-lock-keywords
   (append
    '(
-     ("^%%" . font-lock-reference-face)
+     ("^%%" . font-lock-constant-face)
      "^%{"
      "^%init{"
      "^%initthrow{"
@@ -109,9 +113,5 @@
      )
    java-font-lock-keywords-2)
   "JFlex keywords for font-lock mode")
-
-(put 'jflex-mode 'font-lock-defaults
-	 '(jflex-font-lock-keywords
-	   nil nil ((?_ . "w")) beginning-of-defun))
 
 (provide 'jflex-mode)
