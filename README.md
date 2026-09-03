@@ -39,3 +39,8 @@ updateansible
 
 - Check if there is a dotfiles directory already. If there is, it commits everything that is uncommited and pushes everything unpushed.
 - Executes the playbook fetching it from github
+
+## ToDo
+[ ] Use Nix for development packages
+[ ] Add missing packages
+[ ] Fix usage of kewlfft.aur
