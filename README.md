@@ -41,6 +41,6 @@ updateansible
 - Executes the playbook fetching it from github
 
 ## ToDo
-[ ] Use Nix for development packages
-[ ] Add missing packages
-[ ] Fix usage of kewlfft.aur
+- [ ] Use Nix for development packages
+- [ ] Add missing packages
+- [ ] Fix usage of kewlfft.aur
