@@ -2,24 +2,25 @@
 
 My personal dotfiles for the machines and distros I use. Public because at the first setup after OS installation I might not have SSH configured.
 
+## How this works
+
+- Ansible is used to automate installation of several required packages I need for each dotfile (niri dotfiles require the niri package, waybar dotfiles require waybar, nvim dotfiles require nvim and several LSPs, etc)
+- GNU Stow is used to apply the dotfiles for the current user
+
 ## Supported distros
 
-| Distro | Playbook | Scope |
-|---|---|---|
-| Arch / CachyOS | `ansible/playbook_arch.yml` | Everything: base, development, neovim, doom, shell, terminal apps, python, plus personal/GUI apps (niri, waybar, virt-manager, AUR packages...) |
-| Ubuntu (24.04) | `ansible/playbook_ubuntu.yml` | Development-only: base, development, neovim, doom, shell, terminal apps, python. No GUI/personal apps |
+| Distro | Playbook |
+|---|---|
+| Arch | `ansible/playbook_arch.yml` |
+| Ubuntu (24.04) | `ansible/playbook_ubuntu.yml` |
 
 Distro-specific zsh configuration lives in `~/.zshrc_arch` / `~/.zshrc_ubuntu`, sourced from `.zshrc` based on `/etc/os-release`. For example, fzf key-bindings differ per distro because Ubuntu ships an older fzf than Arch.
 
-### Ubuntu notes
-- Neovim is installed via Homebrew (linuxbrew) because the apt version is too old for the current config; linuxbrew must be present before running the playbook.
-- Emacs is installed via snap (`--classic`) instead of apt.
-- Requires the apt `universe` component (enabled by default on standard installs).
-- fzf key-bindings come from oh-my-zsh's `fzf` plugin (Ubuntu ships an older fzf than Arch, so the vendored `~/.zsh_fzf` is Arch-only).
-- Homebrew (linuxbrew) environment is loaded automatically when present; JetBrains Toolbox scripts and `~/bin` are added to PATH.
-- Some tools have different binary names on Debian/Ubuntu; aliases are set in `~/.zshrc_ubuntu` (`bat` -> `batcat`, `fd` -> `fdfind`).
-- `eza` comes from its official apt repository (not packaged in 24.04).
-- fastfetch and phpactor are not installed on Ubuntu (fastfetch missing from repos; PHP LSP handled by cargo-installed `phpantom_lsp`).
+Most differences between Arch and Ubuntu involves configuring the whole desktop environment in Arch (Niri + Mako + Vicinae + xdg-portal-* + awww + swaylock + etc) and some personal applications (Zen Browser, etc). Ubuntu is focused mainly in configuring a development environment (nvim, doom emacs, LSPs, etc). Ubuntu even has an `ubuntu` branch because some dotfiles I still haven't made "distro aware" like ZSH, and they needed change (ex: I don't need org-mode in emacs in Ubuntu).
+
+> IMPORTANT/KNOWN ISSUES:
+> - Some configuration is missing from both and currently I'm lazy to add them. Eventually will, but this repo concentrates most of what I tend to customize the most.
+> - I belive the way kewlfft.aur is configured or used in ansible is broken :)
 
 First run:
 ```sh
@@ -38,3 +39,8 @@ updateansible
 
 - Check if there is a dotfiles directory already. If there is, it commits everything that is uncommited and pushes everything unpushed.
 - Executes the playbook fetching it from github
+
+## ToDo
+- [ ] Use Nix for development packages
+- [ ] Add missing packages
+- [ ] Fix usage of kewlfft.aur
