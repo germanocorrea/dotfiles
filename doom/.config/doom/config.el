@@ -181,3 +181,10 @@
 
 (autoload 'jflex-mode "jflex-mode" nil t)
 (setq auto-mode-alist (cons '("\\(\\.flex\\|\\.jflex\\)\\'" . jflex-mode) auto-mode-alist))
+
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.node_modules\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.libs\\'")
+  ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
+  )
+
