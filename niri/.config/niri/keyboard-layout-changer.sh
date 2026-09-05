@@ -49,7 +49,7 @@ set_layout_based_on_active_window() {
 
 set_layout_based_on_active_window # calls once to set layout initially
 while true; do
-    niri msg event-stream | grep -qe "Window focus changed"
+    niri msg event-stream | grep -qe "active window changed"
     debug "recieved window focus change event"
     set_layout_based_on_active_window
 done
