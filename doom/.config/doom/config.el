@@ -130,6 +130,7 @@
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+;; (setq org-agenda-include-diary t)
 
 ;;(setq org-latex-image-default-scale 0.5)
 (setq org-format-latex-options '(:foreground default :background "Transparent" :scale 1))
