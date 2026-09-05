@@ -106,6 +106,7 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "~/dotfiles/set_bg.sh" "~/dotfiles/wallpapers"
+spawn-at-startup "~/.config/niri/keyboard-layout-changer.sh"
 // spawn-at-startup "wl-paste -t text --watch clipman store"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:

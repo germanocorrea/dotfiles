@@ -1,0 +1,9 @@
+{
+    "default": 0,
+    "default_usb": 2,
+    "per_app_id_usb_only": {
+        "kitty": 1,
+        "emacs": 1,
+        "dev.zed.Zed": 1
+    }
+}
