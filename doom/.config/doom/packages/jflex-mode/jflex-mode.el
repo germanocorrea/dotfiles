@@ -14,7 +14,7 @@
   "Major mode for editing JFlex files"
 
   ;; set the indentation
-  (setq c-basic-offset 2)
+  (setq-local c-basic-offset 2)
 
   (c-set-offset 'knr-argdecl-intro 0)
   (c-set-offset 'topmost-intro-cont 0)
@@ -32,11 +32,39 @@
 
   (define-key jflex-mode-map [tab] 'jflex-indent-command)
 
+  (setq-local indent-line-function #'jflex-indent-line)
+
   (set (make-local-variable 'font-lock-defaults)
        '(jflex-font-lock-keywords
          nil nil ((?_ . "w")) beginning-of-defun)))
 
-(defalias 'jflex-indent-command 'c-indent-command)
+(defun jflex-indent-command (&optional arg)
+  "Indent the current line like `c-indent-command' would.
+
+cc-mode cannot always determine the syntactic context of a JFlex
+line (e.g. top-level Java code, `%directives` and macro/rule
+lines), in which case `c-guess-basic-syntax' signals
+`wrong-type-argument'.  When that happens, just insert whitespace
+up to the next tab stop instead of erroring out."
+  (interactive "P")
+  (condition-case-unless-debug _
+      (c-indent-command arg)
+    (error
+     (insert-tab arg))))
+
+(defun jflex-indent-line ()
+  "Indent current line/region as JFlex/Java, never erroring.
+
+cc-mode's syntactic parser (`c-guess-basic-syntax') fails on
+lines that only make sense in a JFlex specification, such as
+`%directives`, macro definitions, rule patterns and top-level
+Java without a class wrapper.  Run cc-mode's indentation when we
+can, and leave the buffer alone otherwise."
+  (interactive)
+  (condition-case-unless-debug _
+      (c-indent-line-or-region)
+    (error
+     nil)))
 
 (defconst jflex-font-lock-keywords
   (append

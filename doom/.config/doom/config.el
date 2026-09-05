@@ -172,5 +172,12 @@
     :activation-fn (lsp-activate-on "php")
     :server-id 'phpantom-ls)))
 
+(use-package! phscroll
+  :defer t
+  :config
+  (setq org-startup-truncated nil)
+  (with-eval-after-load "org"
+    (require 'org-phscroll)))
+
 (autoload 'jflex-mode "jflex-mode" nil t)
 (setq auto-mode-alist (cons '("\\(\\.flex\\|\\.jflex\\)\\'" . jflex-mode) auto-mode-alist))

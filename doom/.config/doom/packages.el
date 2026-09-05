@@ -68,3 +68,8 @@
 
 (package! jflex-mode
   :recipe (:local-repo "packages/jflex-mode"))
+
+(package! blamer)
+
+(package! phscroll
+  :recipe (:local-repo "packages/phscroll"))
