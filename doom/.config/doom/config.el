@@ -220,3 +220,25 @@
  indent-bars-display-on-blank-lines t)
 
 ;; AUTO CHANGE KEYBOARD LAYOUT ON INSERT MODE
+;; Keyboard layouts:
+;;      0 Portuguese (Brazil, IBM/Lenovo ThinkPad)
+;;      1 English (US)
+;;      2 English (US, intl., with dead keys)
+(defun niri-set-layout (idx) (shell-command-to-string (concat "niri msg action switch-layout " idx)))
+(defun niri-get-layout () (string-trim (shell-command-to-string "niri msg -j keyboard-layouts | jq .current_idx")))
+(defvar niri-current-idx nil)
+(add-hook
+ 'evil-insert-state-entry-hook
+ (lambda ()
+   (when (string-equal "2" (setq niri-current-idx (niri-get-layout)))
+     (niri-set-layout "1"))
+   )
+ )
+
+(add-hook
+ 'evil-insert-state-exit-hook
+ (lambda ()
+   (when niri-current-idx
+     (niri-set-layout niri-current-idx))
+   )
+ )
