@@ -105,6 +105,7 @@ vim.pack.add({
   -- colorschemes
   'https://github.com/rose-pine/neovim',
   'https://github.com/nyoom-engineering/oxocarbon.nvim',
+  'https://github.com/nickkadutskyi/jb.nvim',
 })
 
 require('fzf-lua').setup { fzf_colors = true }
@@ -172,7 +173,7 @@ require('wayfinder').setup {}
 
 require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure', 'gdscript' }
 
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme jb")
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'rust', 'javascript', 'typescript', 'php', 'zig', 'c', 'cpp', 'css', 'diff', 'dockerfile', 'awk', 'bash', 'cmake', 'csv', 'editorconfig', 'elixir', 'erlang', 'haskell', 'gomod', 'go', 'gnuplot', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore', 'html', 'ini', 'java', 'json', 'json5', 'jsx', 'tsx', 'kotlin', 'latex', 'lua', 'luadoc', 'make', 'markdown', 'matlab', 'mermaid', 'nix', 'regex', 'ruby', 'scala', 'sql', 'ssh_config', 'terraform', 'vhdl', 'yaml', 'zsh', 'toml', 'arduino', 'clojure', 'gdscript' },

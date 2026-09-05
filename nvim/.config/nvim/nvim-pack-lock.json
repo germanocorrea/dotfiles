@@ -12,6 +12,10 @@
       "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
+    "jb.nvim": {
+      "rev": "984139426dbc1af955fab83b964712d36db7213d",
+      "src": "https://github.com/nickkadutskyi/jb.nvim"
+    },
     "lsp-lens.nvim": {
       "rev": "48bb1a7e271424c15f3d588d54adc9b7c319d977",
       "src": "https://github.com/VidocqH/lsp-lens.nvim"
