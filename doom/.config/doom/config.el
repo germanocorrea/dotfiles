@@ -188,3 +188,24 @@
   ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
   )
 
+;; MAGIT CONFIG
+(after! magit
+  (setq magit-diff-refine-hunk 'all)
+  (setq magit-diff-refine-ignore-whitespace t)
+  (setq magit-diff-fontify-hunk 'all))
+
+;; EDIFF
+(after! ediff
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-auto-refine 'on)
+  )
+(custom-set-faces!
+  '(ediff-current-diff-A :inherit magit-diff-removed-highlight :foreground unspecified)
+  '(ediff-current-diff-B :inherit magit-diff-added-highlight :foreground unspecified)
+  '(ediff-fine-diff-A :inherit diff-refine-removed :foreground unspecified)
+  '(ediff-fine-diff-B :inherit diff-refine-added :foreground unspecified))
+(add-hook 'ediff-startup-hook #'scroll-all-mode)
+(add-hook 'ediff-quit-hook (lambda () (scroll-all-mode -1)))
+
+;; INDENT BARS
