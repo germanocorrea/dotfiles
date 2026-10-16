@@ -66,6 +66,10 @@
 (setq user-full-name "Germano Bruscato Corrêa"
       user-mail-address "germanobruscato@gmail.com")
 
+;; ANDROID-AWARE CONF
+(defun not-android ()
+  (not (eq system-type 'android)))
+
 ;; LAYOUT & STYLE
 (setq display-line-numbers-type t)
 (add-to-list 'default-frame-alist '(alpha-background . 85))
@@ -142,7 +146,7 @@
               (when (org-roam-file-p)
                 (unless (get-buffer-window org-roam-buffer)
                   (org-roam-buffer-toggle))))))
-
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;; SPELLCHECK
 ;; (setq ispell-program-name "hunspell")
@@ -225,21 +229,21 @@
 ;;      0 Portuguese (Brazil, IBM/Lenovo ThinkPad)
 ;;      1 English (US)
 ;;      2 English (US, intl., with dead keys)
-(defun niri-set-layout (idx) (shell-command-to-string (concat "niri msg action switch-layout " idx)))
-(defun niri-get-layout () (string-trim (shell-command-to-string "niri msg -j keyboard-layouts | jq .current_idx")))
-(defvar niri-current-idx nil)
-(add-hook
- 'evil-insert-state-entry-hook
- (lambda ()
-   (when (string-equal "2" (setq niri-current-idx (niri-get-layout)))
-     (niri-set-layout "1"))
-   )
- )
+;; (defun niri-set-layout (idx) (shell-command-to-string (concat "niri msg action switch-layout " idx)))
+;; (defun niri-get-layout () (string-trim (shell-command-to-string "niri msg -j keyboard-layouts | jq .current_idx")))
+;; (defvar niri-current-idx nil)
+;; (add-hook
+;;  'evil-insert-state-entry-hook
+;;  (lambda ()
+;;    (when (string-equal "2" (setq niri-current-idx (niri-get-layout)))
+;;      (niri-set-layout "1"))
+;;    )
+;;  )
 
-(add-hook
- 'evil-insert-state-exit-hook
- (lambda ()
-   (when niri-current-idx
-     (niri-set-layout niri-current-idx))
-   )
- )
+;; (add-hook
+;;  'evil-insert-state-exit-hook
+;;  (lambda ()
+;;    (when niri-current-idx
+;;      (niri-set-layout niri-current-idx))
+;;    )
+;;  )
