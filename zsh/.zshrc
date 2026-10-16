@@ -13,6 +13,7 @@ export GDK_DEBUG=portals
 export QT_QPA_PLATFORMTHEME=xdgdesktopportal
 export GO_PATH=$HOME/go/bin
 export PATH=$PATH:~/.cargo/bin/:~/.local/bin:~/go/bin:~/.emacs.d/bin:~/.config/emacs/bin
+export _JAVA_OPTIONS="-Dsun.java2d.uiScale=2"
 
 DISABLE_AUTO_UPDATE="true"
 ZSH_THEME=lambda
@@ -56,9 +57,9 @@ plugins=(
 
 # Distro-specific plugins (must be added before oh-my-zsh is sourced)
 case "$DISTRO" in
-    arch|cachyos) plugins+=(archlinux) ;;
-    # omz's fzf plugin works with Ubuntu's older fzf (no vendored bindings needed)
-    ubuntu) plugins+=(fzf common-aliases) ;;
+arch | cachyos) plugins+=(archlinux) ;;
+# omz's fzf plugin works with Ubuntu's older fzf (no vendored bindings needed)
+ubuntu) plugins+=(fzf common-aliases) ;;
 esac
 
 source $ZSH/oh-my-zsh.sh

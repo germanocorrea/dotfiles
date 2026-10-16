@@ -16,3 +16,4 @@ export NVM_DIR="$HOME/.nvm"
 export GTK_USE_PORTAL=1
 export GDK_DEBUG=portals
 export QT_QPA_PLATFORMTHEME=xdgdesktopportal
+export _JAVA_OPTIONS="-Dsun.java2d.uiScale=2"
