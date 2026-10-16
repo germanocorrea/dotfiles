@@ -19,7 +19,7 @@ while true; do
         done |
         sort -n | cut -d':' -f2- |
         while read -r img; do
-            awww img --resize="$RESIZE_TYPE" "$img"
+            awww img --resize="$RESIZE_TYPE" "$img" --transition-type wipe --transition-step 90 --transition-angle 30
             sleep "$DEFAULT_INTERVAL"
         done
 done
