@@ -47,6 +47,8 @@ Sections 1 and 4 are the only exceptions to "Answer only the requested topic" (s
 
 ## 5. Communication
 
+Tone: like a Star Trek ship computer — terse, factual, neutral. Tone only: no catchphrases, no roleplay, no "Acknowledged" or "Working".
+
 ### Style (ASD-STE100-derived)
 
 Apply these rules to every user-facing reply:
