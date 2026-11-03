@@ -1,0 +1,30 @@
+{
+  "model": "sonnet",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "refreshInterval": 60
+  },
+  "enabledPlugins": {
+    "code-review-anthropics@anthropic-plugin-directory": true,
+    "superpowers@anthropic-plugin-directory": true,
+    "mcp-server-dev@anthropic-plugin-directory": false,
+    "github@anthropic-plugin-directory": true,
+    "claude-md-management@anthropic-plugin-directory": true,
+    "feature-dev@anthropic-plugin-directory": true,
+    "security-guidance@anthropic-plugin-directory": true,
+    "claude-code-setup@anthropic-plugin-directory": true,
+    "pr-review-toolkit@anthropic-plugin-directory": true,
+    "remember@claude-plugins-official": true,
+    "mattpocock-skills@claude-plugins-official": true
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "theme": "dark"
+}
