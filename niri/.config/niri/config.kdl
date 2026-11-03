@@ -108,6 +108,8 @@ spawn-at-startup "waybar"
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "~/dotfiles/set_bg.sh"
 spawn-at-startup "~/.config/niri/keyboard-layout-changer.sh"
+spawn-at-startup "zen-browser"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 // spawn-at-startup "wl-paste -t text --watch clipman store"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
