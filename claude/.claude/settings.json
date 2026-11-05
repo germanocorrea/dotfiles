@@ -1,5 +1,5 @@
 {
-  "model": "sonnet",
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
@@ -16,7 +16,9 @@
     "claude-code-setup@anthropic-plugin-directory": true,
     "pr-review-toolkit@anthropic-plugin-directory": true,
     "remember@claude-plugins-official": true,
-    "mattpocock-skills@claude-plugins-official": true
+    "mattpocock-skills@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "cc-plugin-you-should-know@builtin": true
   },
   "modelSettings": {
     "claude-opus-5-5": {
