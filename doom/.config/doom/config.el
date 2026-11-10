@@ -87,6 +87,8 @@
   '(org-level-2 :height 1.2  :line-spacing 0.15)
   '(org-level-3 :height 1.1  :line-spacing 0.1))
 
+(windmove-default-keybindings)
+
 ;; TABS - workspace & buffer bar
 (after! tab-bar
   (setq tab-bar-show t
