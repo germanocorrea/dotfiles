@@ -102,7 +102,7 @@ alias emacs='emacsclient --alternate-editor= --create-frame'
 alias em='emacsclient -nw'
 alias nano='vim -c smile'
 alias vim='vim -c smile'
-alias nvim='nvim -c smile'
+alias nvim='nvim'
 alias icat="kitty +kitten icat"
 alias which="which -a"
 
