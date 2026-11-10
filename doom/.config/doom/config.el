@@ -136,6 +136,8 @@
                 "[/\\\\]\\.\\(idea\\|vscode\\|cursor\\|windsurf\\|devin\\|gemini\\)\\'"))
     (add-to-list 'lsp-file-watch-ignored-directories re)))
 
+(setq lsp-file-watch-threshold 15000)
+
 ;; MAGIT CONFIG
 (after! magit
   (setq magit-diff-refine-hunk 'all)
