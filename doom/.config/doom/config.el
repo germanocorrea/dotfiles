@@ -226,6 +226,10 @@
  indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
  indent-bars-display-on-blank-lines t)
 
+;; TAB-BARS
+(setq centaur-tabs-style "wave")
+(setq centaur-tabs-set-bar t)
+
 ;; AUTO CHANGE KEYBOARD LAYOUT ON INSERT MODE
 ;; Keyboard layouts:
 ;;      0 Portuguese (Brazil, IBM/Lenovo ThinkPad)
