@@ -1,0 +1,9 @@
+# -----------------------------------------------------
+# Arch-specific bash configuration
+# Loaded from .bashrc when $DISTRO is arch.
+# -----------------------------------------------------
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+export _JAVA_OPTIONS="-Dsun.java2d.uiScale=2"

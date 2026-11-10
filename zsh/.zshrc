@@ -56,9 +56,9 @@ plugins=(
 
 # Distro-specific plugins (must be added before oh-my-zsh is sourced)
 case "$DISTRO" in
-    arch|cachyos) plugins+=(archlinux) ;;
-    # omz's fzf plugin works with Ubuntu's older fzf (no vendored bindings needed)
-    ubuntu) plugins+=(fzf common-aliases) ;;
+arch | cachyos) plugins+=(archlinux) ;;
+# omz's fzf plugin works with Ubuntu's older fzf (no vendored bindings needed)
+ubuntu) plugins+=(fzf common-aliases) ;;
 esac
 
 source $ZSH/oh-my-zsh.sh
@@ -101,7 +101,7 @@ alias emacs='emacsclient --alternate-editor= --create-frame'
 alias em='emacsclient -nw'
 alias nano='vim -c smile'
 alias vim='vim -c smile'
-alias nvim='nvim -c smile'
+alias nvim='nvim'
 alias icat="kitty +kitten icat"
 alias which="which -a"
 

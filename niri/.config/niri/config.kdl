@@ -14,7 +14,8 @@ input {
     keyboard {
         xkb { // man xkeyboard-config
             layout "br(thinkpad),us,us(intl)"
-            options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+            // man xkeyboard-config
+            options "grp:win_space_toggle,compose:ralt,caps:ctrl_modifier"
         }
         numlock
     }
@@ -67,9 +68,9 @@ layout {
 		off
 	}
     border {
-        off
-        width 2
-        active-gradient from="#ffffff44" to="#ffffff08" angle=45 relative-to="window" in="srgb-linear"
+        on
+        width 1
+        active-gradient from="#ffffff23" to="#ffffff11" angle=145 relative-to="window" in="srgb-linear"
         inactive-color "#ffffff11"
         urgent-color "#9b0000"
     }
@@ -106,6 +107,9 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "vicinae" "server"
 spawn-at-startup "~/dotfiles/set_bg.sh"
+spawn-at-startup "~/.config/niri/keyboard-layout-changer.sh"
+spawn-at-startup "zen-browser"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 // spawn-at-startup "wl-paste -t text --watch clipman store"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
@@ -231,7 +235,7 @@ window-rule {
 
 window-rule {
     match app-id=r#"kitty$"#
-    match app-id=r#"^org\.gnome\.Nautilus"#
+    // match app-id=r#"^org\.gnome\.Nautilus"#
     opacity 0.85
 }
 

@@ -203,7 +203,7 @@
             "tooltip": false
         },
         "niri/language": {
-            "format": "{short}",
+            "format": "{short} {variant}",
             "expand": true
         },
         "clock": {

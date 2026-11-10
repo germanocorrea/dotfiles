@@ -24,12 +24,13 @@
     - packages
     - ubuntu-base
 
-- name: Instalar Dependências de Compilação (ghcup/rust/tree-sitter)
+- name: Instalar Dependências de Compilação (ghcup/rust/tree-sitter/vterm)
   become: yes
   apt:
     name:
       - build-essential
       - pkg-config
+      - libtool-bin
       - libgmp-dev
       - libnuma-dev
       - zlib1g-dev

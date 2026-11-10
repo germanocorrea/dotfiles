@@ -57,7 +57,7 @@
           - mako
           - xdg-desktop-portal-gnome
           - xdg-desktop-portal-gtk
-          - swaybg
+          - awww
           - swaylock
           - xwayland-satellite
           - udiskie
@@ -74,6 +74,34 @@
         cmd: "stow --adopt niri waybar vicinae"
         chdir: "{{ dotfiles_dir }}"
       tags: dotfiles
+
+# lemurs usa /etc/pam.d/login; sem pam_gnome_keyring o keyring abre trancado
+# e o primeiro app que lê um segredo (Zed, Claude Code) pede senha
+- name: Desbloquear GNOME Keyring no login
+  become: yes
+  tags:
+    - keyring
+    - personal
+  block:
+    - name: Instalar gnome-keyring
+      package:
+        name: gnome-keyring
+        state: present
+      tags: packages
+
+    - name: Adicionar pam_gnome_keyring (auth)
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/login
+        regexp: '^auth\s+optional\s+pam_gnome_keyring\.so'
+        line: "auth       optional     pam_gnome_keyring.so"
+        insertafter: '^auth\s+include\s+system-local-login'
+
+    - name: Adicionar pam_gnome_keyring (session)
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/login
+        regexp: '^session\s+optional\s+pam_gnome_keyring\.so'
+        line: "session    optional     pam_gnome_keyring.so auto_start"
+        insertafter: '^session\s+include\s+system-local-login'
 
 - name: Instalar Pacotes AUR [personal]
   become: yes

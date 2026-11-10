@@ -1,0 +1,18 @@
+@define-color custom-dark #00000070;
+@define-color accent-custom-dark #00000025;
+
+
+@define-color window_bg_color @custom-dark;     /* Main window background */
+@define-color view_bg_color @custom-dark;       /* Content areas, lists, text inputs */
+@define-color popover_bg_color @custom-dark;    /* Dropdown menus and popovers */
+@define-color card_bg_color @custom-dark;       /* Cards and boxed lists */
+@define-color dialog_bg_color @custom-dark;     /* Modal dialogs */
+
+.sidebar-pane,
+.navigation-sidebar,
+.sidebar,
+placessidebar {
+    background-color: @accent-custom-dark;
+}
+
+@define-color headerbar_bg_color @accent-custom-dark;  /* Titlebars */

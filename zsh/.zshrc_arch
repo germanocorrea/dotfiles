@@ -10,3 +10,5 @@ alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # Docker user socket (Arch rootless setup)
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+export _JAVA_OPTIONS="-Dsun.java2d.uiScale=2"
