@@ -116,12 +116,25 @@
 (defun my/disable-line-numbers (&optional dummy)
   (display-line-numbers-mode -1))
 (add-hook 'neo-after-create-hook 'my/disable-line-numbers)
-
 (with-eval-after-load 'lsp-mode
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.node_modules\\'")
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.libs\\'")
-  ;; (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
-  )
+  (dolist (re '("[/\\\\]\\.git\\'"
+                "[/\\\\]node_modules\\'"
+                "[/\\\\]vendor\\'"
+                "[/\\\\]libs[/\\\\]vendor\\'"
+                "[/\\\\]\\.claude[/\\\\]worktrees\\'"
+                "[/\\\\]build\\'"
+                "[/\\\\]tmp\\'"
+                "[/\\\\]tmp_ai_docs\\'"
+                "[/\\\\]downloads\\'"
+                "[/\\\\]\\.codegen[/\\\\]generated\\'"
+                "[/\\\\]coverage\\'"
+                "[/\\\\]tests-coverage\\'"
+                "[/\\\\]\\.jest-cache\\'"
+                "[/\\\\]images\\'"
+                "[/\\\\]spikes\\'"
+                "[/\\\\]\\.opencode\\'"
+                "[/\\\\]\\.\\(idea\\|vscode\\|cursor\\|windsurf\\|devin\\|gemini\\)\\'"))
+    (add-to-list 'lsp-file-watch-ignored-directories re)))
 
 ;; MAGIT CONFIG
 (after! magit
